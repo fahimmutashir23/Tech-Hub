@@ -30,108 +30,17 @@ const MenuBar = () => {
                 Gallery
               </Link>
               <Link
-                to="/videos"
-                className="block px-4 py-2 text-text_gray hover:bg-text_secondary hover:text-white"
-              >
-                Videos
-              </Link>
-              <Link
                 to="/events"
                 className="block px-4 py-2 text-text_gray hover:bg-text_secondary hover:text-white"
               >
                 Event
               </Link>
-              <Link
-                to="/careers"
-                className="block px-4 py-2 text-text_gray hover:bg-text_secondary hover:text-white"
-              >
-                Career
-              </Link>
             </div>
           </li>
           <li className="relative group bg-bg_secondary py-pl_primary">
             <p className="text-text_secondary mb-0 font-semibold text-text_md flex items-center">
-              Products{" "}
-              <span>
-                <MdKeyboardArrowDown className="text-text_secondary text-text_lg" />
-              </span>
-            </p>
-            <div className="absolute bg-bg_primary shadow-md rounded-sm overflow-hidden pt-2 w-48 z-10 group-hover:scale-100 transition-transform duration-300 transform origin-top-right scale-0">
-              <Link
-                to="/"
-                className="block px-4 py-2 text-text_gray hover:bg-text_secondary hover:text-white"
-              >
-                Link 1
-              </Link>
-              <Link
-                to="/"
-                className="block px-4 py-2 text-text_gray hover:bg-text_secondary hover:text-white"
-              >
-                Link 2
-              </Link>
-              <Link
-                to="/"
-                className="block px-4 py-2 text-text_gray hover:bg-text_secondary hover:text-white"
-              >
-                Link 3
-              </Link>
-            </div>
-          </li>
-          <li className="relative group bg-bg_secondary py-pl_primary">
-            <p className="text-text_secondary mb-0 font-semibold text-text_md flex items-center">
-              Industrial Product{" "}
-              <span>
-                <MdKeyboardArrowDown className="text-text_secondary text-text_lg" />
-              </span>
-            </p>
-            <div className="absolute bg-bg_primary shadow-md rounded-sm overflow-hidden pt-2 w-48 z-10 group-hover:scale-100 transition-transform duration-300 transform origin-top-right scale-0">
-              <Link
-                to="/"
-                className="block px-4 py-2 text-text_gray hover:bg-text_secondary hover:text-white"
-              >
-                Link 1
-              </Link>
-              <Link
-                to="/"
-                className="block px-4 py-2 text-text_gray hover:bg-text_secondary hover:text-white"
-              >
-                Link 2
-              </Link>
-              <Link
-                to="/"
-                className="block px-4 py-2 text-text_gray hover:bg-text_secondary hover:text-white"
-              >
-                Link 3
-              </Link>
-            </div>
-          </li>
-          <li className="relative group bg-bg_secondary py-pl_primary">
-            <p className="text-text_secondary mb-0 font-semibold text-text_md flex items-center">
-              Industrial Solution{" "}
-              <span>
-                <MdKeyboardArrowDown className="text-text_secondary text-text_lg" />
-              </span>
-            </p>
-            <div className="absolute bg-bg_primary shadow-md rounded-sm overflow-hidden pt-2 w-48 z-10 group-hover:scale-100 transition-transform duration-300 transform origin-top-right scale-0">
-              <Link
-                to="/"
-                className="block px-4 py-2 text-text_gray hover:bg-text_secondary hover:text-white"
-              >
-                Link 1
-              </Link>
-              <Link
-                to="/"
-                className="block px-4 py-2 text-text_gray hover:bg-text_secondary hover:text-white"
-              >
-                Link 2
-              </Link>
-              <Link
-                to="/"
-                className="block px-4 py-2 text-text_gray hover:bg-text_secondary hover:text-white"
-              >
-                Link 3
-              </Link>
-            </div>
+              Products
+              </p>
           </li>
           <li className="bg-bg_secondary py-pl_primary">
             <Link

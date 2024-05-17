@@ -17,7 +17,7 @@ const Layout = () => {
         </div>
         <Footer />
         <Copyright />
-        <div className="fixed z-50 right-0 bottom-24 md:bottom-[340px] ">
+        <div className="fixed z-50 right-0 bottom-24 md:bottom-[268px] ">
           <Cart />
         </div>
         <div className="fixed z-50 right-0 bottom-24 hidden md:block">

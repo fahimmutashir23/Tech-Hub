@@ -10,7 +10,7 @@ const Navbar = () => {
 
   return (
     <div className="bg-bg_primary">
-      <div className="navbar max-w-7xl mx-auto px-0 py-4 lg:flex justify-between">
+      <div className="navbar max-w-7xl mx-auto px-0 py-4 lg:flex justify-between items-center">
         <div className="navbar-start flex justify-between w-full lg:justify-start lg:w-2/12 ml-2 lg:ml-0">
           <div className="dropdown lg:hidden">
             <div tabIndex={0} role="button" className="">
@@ -26,8 +26,8 @@ const Navbar = () => {
               )}
             </div>
           </div>
-          <Link to="/" className=" text-text_xxl font-bold text-text_secondary px-2 md:px-0">
-            Logo
+          <Link to="/" className=" text-text_xl font-bold text-text_secondary px-2 md:px-0">
+            hgf
           </Link>
         </div>
         <div className="navbar-end hidden lg:flex lg:flex-1 ">

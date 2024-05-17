@@ -1,6 +1,4 @@
-import { FaFacebookSquare, FaLink, FaLinkedin, FaTwitterSquare, FaWhatsappSquare } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
-import { RiArrowGoForwardFill } from "react-icons/ri";
+import { FaFacebookSquare, FaLinkedin, FaTwitterSquare, FaWhatsappSquare } from "react-icons/fa";
 
 const StickySideBar = () => {
     return (
@@ -11,9 +9,6 @@ const StickySideBar = () => {
                 <li><FaWhatsappSquare className="text-text_xl" /></li>
                 <li><FaTwitterSquare className="text-text_xl" /></li>
                 <li><FaLinkedin className="text-text_xl" /></li>
-                <li><MdEmail className="text-text_xl" /></li>
-                <li><FaLink className="text-text_xl" /></li>
-                <li><RiArrowGoForwardFill className="text-text_xl" /></li>
             </ul>
         </div>
     );
