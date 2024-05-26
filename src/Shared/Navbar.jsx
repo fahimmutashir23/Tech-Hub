@@ -4,6 +4,7 @@ import MenuBar from "./MenuBar";
 import { RxCross1 } from "react-icons/rx";
 import { MdMenu } from "react-icons/md";
 import { useState } from "react";
+// import logo from ".././assets/asset/logo/tech-hub logo.png"
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -27,6 +28,7 @@ const Navbar = () => {
             </div>
           </div>
           <Link to="/" className=" text-text_xl font-bold text-text_secondary px-2 md:px-0">
+            {/* <img className="w-32" src={logo}alt="" /> */}
             hgf
           </Link>
         </div>
