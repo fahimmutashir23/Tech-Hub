@@ -5,7 +5,7 @@ import { IoIosMailOpen } from "react-icons/io";
 
 const Footer = () => {
   return (
-    <div className="bg-bg_secondary mt-mt_secondary px-2 lg:px-0">
+    <div className="bg-bg_secondary pt-pt_secondary  px-2 lg:px-0">
       <div className="max-w-7xl mx-auto py-pl_secondary">
         <h1 className="text-text_xxl font-semibold uppercase text-center text-text_secondary">
           our locations
