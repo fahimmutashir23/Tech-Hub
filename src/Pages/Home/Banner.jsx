@@ -108,9 +108,9 @@ const Banner = () => {
           </SwiperSlide>
         </Swiper>
       </section>
-      {/* // header section ends
+      
 
-// ecommerce ad section starts */}
+{/* // ecommerce ad section starts */} 
 
       <section className="my-10">
         <div
@@ -164,9 +164,9 @@ const Banner = () => {
           </div>
         </div>
       </section>
-      {/* ecommerce ad section ends */}
 
-      {/* gaming world section start */}
+
+{/* gaming world section start */}
       <section className=" mb-10 ">
         <div data-aos="fade-up" data-aos-duration="1000">
           <h1 className="text-3xl font-semibold items-start pb-6 text-text_secondary">
@@ -226,7 +226,7 @@ const Banner = () => {
                 </p>
                 <div className="flex justify-center">
                 <button className="px-6 py-2 rounded-sm flex bg-text_secondary text-white  hover:bg-orange-400 hover:translate-x-4 duration-200">
-                  Add to Cart
+                  Details
                 </button>
                 </div>
               </div>
@@ -254,7 +254,7 @@ const Banner = () => {
                 </p>
                 <div className="flex justify-center">
                 <button className="px-6 py-2 rounded-sm flex bg-text_secondary text-white  hover:bg-orange-400 hover:translate-x-4 duration-200">
-                  Add to Cart
+                  Details
                 </button>
                 </div>
               </div>
@@ -282,7 +282,7 @@ const Banner = () => {
                 </p>
                 <div className="flex justify-center">
                 <button className="px-6 py-2 rounded-sm flex bg-text_secondary text-white  hover:bg-orange-400 hover:translate-x-4 duration-200">
-                  Add to Cart
+                  Details
                 </button>
                 </div>
               </div>

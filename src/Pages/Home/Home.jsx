@@ -66,7 +66,7 @@ const Home = () => {
         <div
           data-aos="fade-down"
           data-aos-easing="linear"
-          data-aos-duration="1500"
+          data-aos-duration="1000"
         >
           <h1 className="text-3xl font-semibold items-start pb-6  text-text_secondary">
             Shop By Brand
