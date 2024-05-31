@@ -17,24 +17,52 @@ import mobile1 from "../../assets/asset/mobile and gaget/pngwing.com (9).png";
 import mobile2 from "../../assets/asset/mobile and gaget/pngwing.com (7).png";
 import mobile3 from "../../assets/asset/mobile and gaget/pngwing.com (10).png";
 import mobile4 from "../../assets/asset/mobile and gaget/pngwing.com (8).png";
-
-// import { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-// import './styles.css';
 import { Pagination } from "swiper/modules";
 import "././home.css";
 import { Link } from "react-scroll";
 import { FaChevronRight } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
 const Home = () => {
+  const targetDate = "2024-06-01T23:59:59";
+
+  const calculateTimeLeft = () => {
+    const difference = +new Date(targetDate) - +new Date();
+    let timeLeft = {};
+
+    if (difference > 0) {
+      timeLeft = {
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
+      };
+    } else {
+      timeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    }
+
+    return timeLeft;
+  };
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [timeLeft]);
+
   return (
-    <div className="home bg-slate-100 ">
+    <div className="home">
       <Banner></Banner>
 
       {/* shop by brand section */}
-      <section className="px-10 mb-10 pt-14">
+      <section className=" mb-10 pt-14">
         <div
           data-aos="fade-down"
           data-aos-easing="linear"
@@ -44,64 +72,64 @@ const Home = () => {
             Shop By Brand
           </h1>
 
-          <div className="flex flex-wrap gap-2 ">
+          <div className="grid grid-cols-2 lg:grid-cols-6 gap-2 ">
             <img
-              className="w-[15%] h-[120px] bg-slate-200 px-10"
+              className="h-32 w-full bg-slate-200 px-10"
               src={brand1}
               alt=""
             />
             <img
-              className="w-[15%] h-[120px] bg-slate-200 py-10 px-10"
+              className="h-32 w-full bg-slate-200 py-10 px-10"
               src={brand2}
               alt=""
             />
             <img
-              className="w-[15%] h-[120px] bg-slate-200  px-10 py-10"
+              className="h-32 w-full bg-slate-200  px-10 py-10"
               src={brand3}
               alt=""
             />
             <img
-              className="w-[15%] h-[120px] bg-slate-200  px-10 py-12"
+              className="h-32 w-full bg-slate-200  px-10 py-12"
               src={brand4}
               alt=""
             />
             <img
-              className="w-[15%] h-[120px] bg-slate-200  px-10 py-10"
+              className="h-32 w-full bg-slate-200  px-10 py-10"
               src={brand5}
               alt=""
             />
             <img
-              className="w-[15%] h-[120px] bg-slate-200  px-10 py-12"
+              className="h-32 w-full bg-slate-200  px-10 py-12"
               src={brand6}
               alt=""
             />
             <img
-              className="w-[15%] h-[120px] bg-slate-200  px-10 py-8"
+              className="h-32 w-full bg-slate-200  px-10 py-8"
               src={brand7}
               alt=""
             />
             <img
-              className="w-[15%] h-[120px] bg-slate-200 px-10"
+              className="h-32 w-full bg-slate-200 px-10"
               src={brand1}
               alt=""
             />
             <img
-              className="w-[15%] h-[120px] bg-slate-200 py-10 px-10"
+              className="h-32 w-full bg-slate-200 py-10 px-10"
               src={brand2}
               alt=""
             />
             <img
-              className="w-[15%] h-[120px] bg-slate-200  px-10 py-10"
+              className="h-32 w-full bg-slate-200  px-10 py-10"
               src={brand3}
               alt=""
             />
             <img
-              className="w-[15%] h-[120px] bg-slate-200  px-10 py-12"
+              className="h-32 w-full bg-slate-200  px-10 py-12"
               src={brand4}
               alt=""
             />
             <img
-              className="w-[15%] h-[120px] bg-slate-200  px-10 py-10"
+              className="h-32 w-full bg-slate-200  px-10 py-10"
               src={brand5}
               alt=""
             />
@@ -110,8 +138,7 @@ const Home = () => {
       </section>
 
       {/* tranding section */}
-
-      <section className="px-10 mb-10 pt-10">
+      <section className=" mb-10 pt-10">
         <div>
           <h1 className="text-3xl font-semibold items-start pb-8 text-text_secondary">
             Tranding Shop
@@ -280,147 +307,154 @@ const Home = () => {
       </section>
 
       {/* Advertisment section */}
-
-      <section className="px-10 mb-10 pt-10 pb">
-        <div>
-          <div className=" flex  gap-x-4">
-            {/* 1st adv */}
-            <div
-              data-aos="fade-right"
-              className="w-[50%] bg-green-100 px-10 py-20 "
-            >
-              <div className="flex gap-5 text-2xl justify-center">
-                <div>
-                  <span className="countdown font-mono text-4xl">
-                    <span style={{ "--value": 15 }}></span>
-                  </span>
-                  days
-                </div>
-                <div>
-                  <span className="countdown font-mono text-4xl">
-                    <span style={{ "--value": 10 }}></span>
-                  </span>
-                  hours
-                </div>
-                <div>
-                  <span className="countdown font-mono text-4xl">
-                    <span style={{ "--value": 24 }}></span>
-                  </span>
-                  min
-                </div>
-                <div>
-                  <span className="countdown font-mono text-4xl">
-                    <span style={{ "--value": 52 }}></span>
-                  </span>
-                  sec
-                </div>
+      <section className=" mb-10 pt-10 pb">
+        <div className=" flex flex-col lg:flex-row gap-x-4">
+          {/* 1st adv */}
+          <div
+            data-aos="fade-right"
+            className="lg:w-[50%] bg-green-100 px-10 py-20 "
+          >
+            <div className="flex gap-5 text-2xl justify-center">
+              <div>
+                <span className="countdown font-mono text-4xl">
+                  <span style={{ "--value": timeLeft.days }}></span>
+                </span>
+                days
               </div>
-              <h1 className="text-5xl font-semibold items-start pb-8 text-text_secondary pt-20 text-center">
-                WOO ! FLASH SALE
-              </h1>
-              <div className="flex flex-wrap ml-16 gap-x-32 pt-6 ">
-                <div className="flex gap-3">
-                  <Link>
-                    <p className="text-lg font-medium ml-18 text-text_secondary">
-                      Shop Now{" "}
-                    </p>
-                  </Link>
-                  <Link>
-                    <FaChevronRight className="text-text_secondary mt-2" />
-                  </Link>
-                </div>
-
-                <img className="w-52 pt-8" src={banner4} alt="" />
+              <div>
+                <span className="countdown font-mono text-4xl">
+                  <span style={{ "--value": timeLeft.hours }}></span>
+                </span>
+                hours
+              </div>
+              <div>
+                <span className="countdown font-mono text-4xl">
+                  <span style={{ "--value": timeLeft.minutes }}></span>
+                </span>
+                min
+              </div>
+              <div>
+                <span className="countdown font-mono text-4xl">
+                  <span style={{ "--value": timeLeft.seconds }}></span>
+                </span>
+                sec
               </div>
             </div>
+            <h1 className="text-5xl font-semibold items-start pb-8 text-text_secondary pt-20 text-center">
+              WOO ! FLASH SALE
+            </h1>
+            <div className="flex flex-wrap ml-16 gap-x-32 pt-6 ">
+              <div className="flex gap-3">
+                <Link>
+                  <p className="text-lg font-medium ml-18 text-text_secondary">
+                    Shop Now{" "}
+                  </p>
+                </Link>
+                <Link>
+                  <FaChevronRight className="text-text_secondary mt-2" />
+                </Link>
+              </div>
 
-            {/* 1st adv */}
-            <div
-              data-aos="fade-left"
-              className="w-[50%] bg-green-100 px-10 py-20"
-            >
-              <h1 className="text-3xl font-semibold items-start pb-8 text-text_secondary">
-                Get Our <span className="text-red-600">Mobile App</span>
-                <br />
-                It’s Make easy for you life !
-              </h1>
-              <img className="w-32" src={pay} alt="" />
-
-              <img className="w-68 pt-8" src={banner5} alt="" />
+              <img className="w-52 pt-8" src={banner4} alt="" />
             </div>
+          </div>
+          {/* 1st adv */}
+          <div
+            data-aos="fade-left"
+            className="lg:w-[50%] bg-green-100 px-10 py-20"
+          >
+            <h1 className="text-3xl font-semibold items-start pb-8 text-text_secondary">
+              Get Our <span className="text-red-600">Mobile App</span>
+              <br />
+              It’s Make easy for you life !
+            </h1>
+            <img className="w-32" src={pay} alt="" />
+
+            <img className="w-68 pt-8" src={banner5} alt="" />
           </div>
         </div>
       </section>
 
       {/* best seller section */}
-
-      <section className="px-10 mb-10 pt-10 pb">
+      <section className=" mb-10 pt-10 pb">
         <div>
           <h1 className="text-3xl font-semibold items-start pb-8 text-text_secondary">
             Best Seller
           </h1>
           <div
             data-aos="fade-left"
-            className="pt-4 grid lg:grid-cols-6 md:grid-cols-2 sm:grid-cols-1 "
+            className="pt-4 grid lg:grid-cols-6 md:grid-cols-2 grid-cols-1 gap-gap_primary"
           >
-            <div className=" ">
-              <img
-                className="w-[180px]  h-[180px]  rounded-xl  bg-slate-200"
+            <div className="">
+              <div className="">
+                <img
+                className=" p-2 w-full h-full object-contain rounded-xl bg-slate-200"
                 src={mobile3}
                 alt=""
               />
-              <h2 className="text-xl font-semibold items-center ml-10 pt-4 pb-8 text-text_secondary ">
+              </div>
+              <h1 className="text-xl font-semibold items-center text-center pt-4 text-text_secondary ">
                 Quick Shop
-              </h2>
+              </h1>
             </div>
-            <div className=" ">
-              <img
-                className="w-[180px]  h-[180px]  rounded-xl  bg-slate-200"
+            <div className="">
+              <div className="">
+                <img
+                className=" p-2 w-full h-full object-contain  rounded-xl  bg-slate-200"
                 src={banner2}
                 alt=""
               />
-              <h2 className="text-xl font-semibold items-center ml-10 pt-4 pb-8 text-text_secondary ">
+              </div>
+              <h2 className="text-xl font-semibold items-center text-center pt-4 text-text_secondary ">
                 Mobile Shop
               </h2>
             </div>
-            <div className=" ">
-              <img
-                className="w-[180px]  h-[180px]  rounded-xl  bg-slate-200"
+            <div className="">
+              <div className="">
+                <img
+                className=" p-2 w-full h-full object-contain  rounded-xl  bg-slate-200"
                 src={mobile1}
                 alt=""
               />
-              <h2 className="text-xl font-semibold items-center ml-10 pt-4 pb-8 text-text_secondary ">
+              </div>
+              <h2 className="text-xl font-semibold items-center text-center pt-4 text-text_secondary ">
                 Smart Watch
               </h2>
             </div>
-            <div className=" ">
-              <img
-                className="w-[180px]  h-[180px]  rounded-xl  bg-slate-200"
+            <div className="">
+              <div className="">
+                <img
+                className=" p-2 w-full h-full object-contain  rounded-xl  bg-slate-200"
                 src={banner3}
                 alt=""
               />
-              <h2 className="text-xl font-semibold items-center ml-6 pt-4 pb-8 text-text_secondary ">
+              </div>
+              <h2 className="text-xl font-semibold items-center text-center pt-4 text-text_secondary ">
                 Computer shop
               </h2>
             </div>
-            <div className=" ">
-              <img
-                className="w-[180px]  h-[180px]  rounded-xl  bg-slate-200"
+            <div className="">
+              <div className="">
+                <img
+                className=" p-2 w-full h-full object-contain  rounded-xl  bg-slate-200"
                 src={mobile2}
                 alt=""
               />
-              <h2 className="text-xl font-semibold items-center ml-10 pt-4 pb-8 text-text_secondary ">
+              </div>
+              <h2 className="text-xl font-semibold items-center text-center pt-4 text-text_secondary ">
                 Quick Shop
               </h2>
             </div>
-            <div className=" ">
-              <img
-                className="w-[180px] h-[180px] rounded-xl  bg-slate-200"
+            <div className="">
+              <div className="">
+                <img
+                className=" p-2 w-full h-full object-contain rounded-xl bg-slate-200"
                 src={banner4}
                 alt=""
               />
-              <h2 className="text-xl font-semibold items-center ml-10 pt-4 pb-8 text-text_secondary ">
-                Gaget Shop
+              </div>
+              <h2 className="text-xl font-semibold items-center text-center pt-4 text-text_secondary ">
+                Gadget Shop
               </h2>
             </div>
           </div>
@@ -428,8 +462,7 @@ const Home = () => {
       </section>
 
       {/* ad section */}
-
-      <section className="lg:px-72 md:px-10 sm:px-10 mb-10 pt-10 pb">
+      <section className="mb-10 pt-10 pb">
         <div
           data-aos="fade-right"
           className="bg-text_secondary h-24 w-[800px] "
@@ -449,28 +482,28 @@ const Home = () => {
       </section>
 
       {/* mail section */}
-      <section className="pt-10 ">
-        <div className="flex gap-x-10  bg-green-200 py-32 px-48">
-          <div>
+      <section className="pt-10">
+        <div className="flex flex-col justify-center py-20 lg:flex-row  bg-green-200 ">
+          <div className="flex justify-center items-center">
             <img className="w-52" src={mobile3} alt="" />
           </div>
-          <div className="text-center">
-            <p className="text-3xl font-semibold items-start pb-2 text-black pt-6 px-20">
+          <div className="text-center px-2">
+            <p className=" text-xl lg:text-3xl font-semibold items-start text-black pt-6">
               Get <span className="text-orange-400">20% </span> Off Discount
               Coupon{" "}
             </p>
-            <p className="text-lg font-light items-start pb-2 text-black pt-1 px-20">
+            <p className="text-md lg:text-xl font-light items-start pb-2 text-black pt-1">
               by Subscribe our Newsletter{" "}
             </p>
             <div className="pt-6">
               <input
-                className="w-96 h-12 px-2"
+                className="w-full h-12 px-2"
                 type="email"
                 name=""
                 placeholder="Email Address"
                 id=""
               />
-              <button className="btn btn-ghost bg-orange-400 hover:bg-white hover:text-orange-400 hover:active:text-orange-400 w-52 h-12 text-black font-semibold ">
+              <button className="btn btn-ghost bg-orange-400 hover:bg-white hover:text-orange-400 hover:active:text-orange-400 px-6 py-2 text-black font-semibold mt-2">
                 Get A Coupon
               </button>
             </div>

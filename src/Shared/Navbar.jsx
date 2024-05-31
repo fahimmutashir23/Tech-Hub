@@ -10,7 +10,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="bg-bg_primary">
+    <div className="bg-green-100">
       <div className="navbar max-w-7xl mx-auto px-0 py-4 lg:flex justify-between items-center">
         <div className="navbar-start flex justify-between w-full lg:justify-start lg:w-2/12 ml-2 lg:ml-0">
           <div className="dropdown lg:hidden">
