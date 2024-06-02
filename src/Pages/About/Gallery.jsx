@@ -53,7 +53,7 @@ const Gallery = () => {
         </div>
       </section>
 
-      {/* review section */}
+  {/* review section */}
       <section className=" pt-2">
         <div className=" h-[150px] text-center">
           <h1 className="text-4xl font-semibold items-start pb-2 text-text_secondary pt-6">
@@ -300,7 +300,7 @@ const Gallery = () => {
         </div>
       </section>
 
-      {/* ad section */}
+  {/* ad section */}
       <section className="mt-10">
         <div
           data-aos="fade-up"
@@ -354,7 +354,7 @@ const Gallery = () => {
         </div>
       </section>
 
-      {/* payment ad section */}
+  {/* payment ad section */}
       <section className="mb-10 pt-10">
         <div className=" flex flex-col lg:flex-row gap-4">
           {/* 1st adv */}
@@ -369,7 +369,7 @@ const Gallery = () => {
           </div>
 
           {/* 1st adv */}
-          <div data-aos="fade-right" className="lg:w-[50%] bg-green-100 p-6">
+          <div data-aos="fade-left" className="lg:w-[50%] bg-green-100 p-6">
             <div className="h-[70%] w-full overflow-hidden">
               <img className="h-full w-full object-cover" src={ab3} alt="" />
             </div>
@@ -381,7 +381,7 @@ const Gallery = () => {
         </div>
       </section>
 
-      {/* mail section */}
+  {/* mail section */}
       <section className="">
         <div className="flex flex-col justify-center py-20 lg:flex-row  bg-green-200 ">
           <div className="flex justify-center items-center">

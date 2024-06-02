@@ -63,7 +63,9 @@ const Navbar = () => {
             </li>
             <li className="relative group">
               <p className="text-text_secondary mb-0 font-semibold text-text_md flex items-center">
+                <Link to={'/products'}>
                 Products
+                </Link>
               </p>
             </li>
             <li>
