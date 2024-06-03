@@ -1,7 +1,7 @@
 [
     {
-        "id": "1",
-        "name": "Ultra HD Smart TV",
+        "id": 1,       
+         "name": "Ultra HD Smart TV",
         "brand": "Samsung",
         "details": "55 inch, 4K Ultra HD, Smart TV with HDR and Alexa built-in.",
         "price": 499.99,
@@ -9,24 +9,24 @@
         "image": "../src/assets/asset/mobile and gaget/pngwing.com (9).png"
     },
     {
-        "id": "2",
-        "name": "Wireless Noise Cancelling Headphones",
+        "id":2 ,       
+         "name": "Wireless Noise Cancelling Headphones",
         "brand": "Sony",
         "details": "Over-ear, Bluetooth, 30 hours battery life, active noise cancellation.",
         "price": 299.99,
         "image": "../src/assets/asset/mobile and gaget/pngwing.com (8).png"
     },
     {
-        "id": "3",
-        "name": "Gaming Laptop",
+        "id": 3,      
+          "name": "Gaming Laptop",
         "brand": "Dell",
-        "details": "15.6 inch, Intel i7, 16GB RAM, 512GB SSD, NVIDIA GTX 1660Ti.",
+        "details": "15.6 inch, Intel i7, 16GB RAM, 512GB SSD, NVIDIA T 1660Ti.",
         "price": 999.99,
         "category": "hotproduct",
         "image": "../src/assets/asset/mobile and gaget/pngwing.com (7).png"
     },
     {
-        "id": "4",
+        "id": 4,
         "name": "Smartphone",
         "brand": "Apple",
         "details": "iPhone 13, 128GB, 5G, Dual-camera system, Face ID.",
@@ -35,7 +35,7 @@
         "image": "../src/assets/asset/mobile and gaget/pngwing.com (10).png"
     },
     {
-        "id": "5",
+        "id": 5,
         "name": "Fitness Tracker",
         "brand": "Fitbit",
         "details": "Charge 4, Built-in GPS, Heart rate monitor, Sleep tracking.",
@@ -44,7 +44,7 @@
         "image": "../src/assets/asset/mobile and gaget/pngwing.com (9).png"
     },
     {
-        "id": "6",
+        "id": 6,
         "name": "Bluetooth Speaker",
         "brand": "Bose",
         "details": "Portable, Waterproof, 12 hours battery life, Voice control.",
@@ -52,7 +52,7 @@
         "image": "../src/assets/asset/mobile and gaget/pngwing.com (8).png"
     },
     {
-        "id": "7",
+        "id": 7,
         "name": "Electric Toothbrush",
         "brand": "Philips",
         "details": "Sonicare DiamondClean, Rechargeable, 5 modes, 2 brush heads.",
@@ -60,7 +60,7 @@
         "image": "../src/assets/asset/mobile and gaget/pngwing.com (7).png"
     },
     {
-        "id": "8",
+        "id": 8,
         "name": "Smartwatch",
         "brand": "Garmin",
         "details": "Venu 2, GPS, Heart rate monitor, AMOLED display, Music storage.",
@@ -68,7 +68,7 @@
         "image": "../src/assets/asset/mobile and gaget/pngwing.com (10).png"
     },
     {
-        "id": "9",
+        "id": 9,
         "name": "Robot Vacuum Cleaner",
         "brand": "iRobot",
         "details": "Roomba i7+, Self-emptying, Wi-Fi connected, Smart mapping.",
@@ -76,7 +76,7 @@
         "image": "../src/assets/asset/mobile and gaget/pngwing.com (9).png"
     },
     {
-        "id": "10",
+        "id": 10,
         "name": "Espresso Machine",
         "brand": "Breville",
         "details": "Barista Express, Stainless steel, Built-in grinder, Steam wand.",
