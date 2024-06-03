@@ -142,10 +142,10 @@ const Gallery = () => {
                     />
                     <div className="pt-2">
                       <h3 className="text-xl font-mrdium text-slate-500">
-                        Fahim Muntasir
+                        Farhana Shinmi
                       </h3>
                       <p className="text-sm font-light text-slate-500 text-start">
-                        Jhinaidah,Jossor
+                        Dhaka
                       </p>
                     </div>
                   </div>

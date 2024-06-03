@@ -5,6 +5,7 @@
         "brand": "Samsung",
         "details": "55 inch, 4K Ultra HD, Smart TV with HDR and Alexa built-in.",
         "price": 499.99,
+        "category": "hotproduct",
         "image": "../src/assets/asset/mobile and gaget/pngwing.com (9).png"
     },
     {
@@ -21,6 +22,7 @@
         "brand": "Dell",
         "details": "15.6 inch, Intel i7, 16GB RAM, 512GB SSD, NVIDIA GTX 1660Ti.",
         "price": 999.99,
+        "category": "hotproduct",
         "image": "../src/assets/asset/mobile and gaget/pngwing.com (7).png"
     },
     {
@@ -29,6 +31,7 @@
         "brand": "Apple",
         "details": "iPhone 13, 128GB, 5G, Dual-camera system, Face ID.",
         "price": 799.99,
+        "category": "hotproduct",
         "image": "../src/assets/asset/mobile and gaget/pngwing.com (10).png"
     },
     {
@@ -37,6 +40,7 @@
         "brand": "Fitbit",
         "details": "Charge 4, Built-in GPS, Heart rate monitor, Sleep tracking.",
         "price": 129.99,
+        "category": "hotproduct",
         "image": "../src/assets/asset/mobile and gaget/pngwing.com (9).png"
     },
     {
