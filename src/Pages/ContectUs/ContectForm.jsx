@@ -1,6 +1,6 @@
 import Lottie from "lottie-react";
 import { useState } from "react";
-import contactAnimation from '../../assets/asset/contant_animation.json'
+import contactAnimation from '../../assets/asset/Animation - 1717528196917.json'
 
 const ContectForm = () => {
   const [formData, setFormData] = useState({
@@ -32,8 +32,8 @@ const ContectForm = () => {
             Contect Form
           </h1>
         </div>
-        <div className="flex flex-col gap-gap_primary lg:flex-row items-center justify-center p-6 ">
-          <form className="lg:flex-1" onSubmit={handleSubmit}>
+        <div className="flex flex-col gap-x-20 lg:flex-row items-center  p-6 justify-center  bg-green-200">
+          <form className="lg:flex-1 px-2 pt-10 py-4" onSubmit={handleSubmit}>
             <div className="form-group w-full h-full object-contain pb-6">
               <label htmlFor="name">Name</label>
               <input
@@ -88,8 +88,8 @@ const ContectForm = () => {
               Submit
             </button>
           </form>
-          <div className="lg:flex-1">
-          <Lottie animationData={contactAnimation} loop={true} />
+          <div className="lg:flex-1 bg-green-200 ">
+          <Lottie className="w-80 h-full" animationData={contactAnimation} loop={true} />
           </div>
         </div>
       </section>
