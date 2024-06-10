@@ -7,6 +7,9 @@ import DetailsProduct from "../Pages/Products/DetailsProduct";
 import Contect from "../Pages/ContectUs/Contect";
 import HotProducts from './../Pages/Products/HotProducts';
 import Event from "../Pages/About/Event";
+import DashboardLayout from "../Layouts/DashboardLayout";
+import AdminHome from "../Pages/AdminPages/AdminHome/AdminHome";
+import ProductList from "../Pages/AdminPages/ProductList/ProductList";
 
 
 const Router = createBrowserRouter([
@@ -43,6 +46,20 @@ const Router = createBrowserRouter([
                 element : <HotProducts/>,
            
             },
+        ]
+    },
+    {
+        path: '/admin',
+        element: <DashboardLayout />,
+        children: [
+            {
+                path: '/admin',
+                element: <AdminHome />
+            },
+            {
+                path: '/admin/productList',
+                element: <ProductList />
+            }
         ]
     }
 ])

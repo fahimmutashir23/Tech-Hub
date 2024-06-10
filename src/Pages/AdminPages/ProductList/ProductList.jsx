@@ -1,0 +1,137 @@
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { BiEdit } from "react-icons/bi";
+import { MdDelete } from "react-icons/md";
+import { toast } from "react-toastify";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import AddProductModal from "./AddProductModal";
+import Loader from "../../../Utils/Loader";
+
+const ProductList = () => {
+  const [popOpen, setPopOpen] = useState(null);
+  const axiosSecure = useAxiosSecure();
+
+  const togglePopOpen = (idx) => {
+    setPopOpen((prevIdx) => (prevIdx === idx ? null : idx));
+  };
+
+  const {
+    data: products = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["product"],
+    queryFn: async () => {
+      const res = await axiosSecure("/api/get-product-list");
+      return res.data;
+    },
+  });
+
+  const handleUpdate = async (id) => {
+    console.log(id);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const res = await axiosSecure.delete(`/api/delete-product/${id}`);
+      if (res.data) {
+        toast.success("Product Deleted Successfully");
+        refetch();
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
+  if (isLoading) {
+    return <Loader />;
+  }
+  return (
+    <div className=" rounded-md py-2 px-3">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-0  w-full">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-0 bg-green-100 mb-2 w-full ">
+          <div className="flex">
+            <button
+              className={`text-text_lg bg-green-500 text-white px-5 py-2 font-bold duration-500`}
+            >
+              All( {products.result.length} )
+            </button>
+          </div>
+          <AddProductModal fetchData={refetch} />
+        </div>
+      </div>
+      <div className="overflow-x-auto pb-32 ">
+        <table className="table border border-blue-900">
+          {/* head */}
+          <thead className="h-[40px]">
+            <tr className="uppercase text-center h-[40px] bg-green-100 font-bold ">
+              <th className="text-lg border">Product Name</th>
+              <th className="text-lg border">Product Category</th>
+              <th className="text-lg border">Price</th>
+              <th className="text-lg border">Brand</th>
+              <th className="text-lg border">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="text-center">
+            {products.result.map((data, idx) => (
+              <tr key={idx}>
+                <td
+                  className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
+                >
+                  {data.name}
+                </td>
+                <td
+                  className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
+                >
+                  {data.category}
+                </td>
+                <td
+                  className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
+                >
+                  {data.price}
+                </td>
+                <td
+                  className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
+                >
+                  {data.brand}
+                </td>
+                <td className="border ">
+                  <button
+                    className="rounded-md border-none py-0 px-2 relative"
+                    onClick={() => togglePopOpen(data._id)}
+                  >
+                    <BsThreeDotsVertical className="text-2xl font-bold text-black" />
+                    <div
+                      className={`bg-green-100 w-44 border border-black absolute ${
+                        popOpen === data._id ? "scale-100 z-10" : "scale-0"
+                      } right-[14px] top-[24px] rounded-md rounded-tr-sm duration-300 origin-top-right`}
+                    >
+                      <ul className="text-black text-left">
+                        <li
+                          onClick={() => handleUpdate(data._id)}
+                          className="w-full p-2 font_standard transition-all flex items-center list_hover gap-2"
+                        >
+                          <BiEdit />
+                          Update
+                        </li>
+                        <li
+                          onClick={() => handleDelete(data._id)}
+                          className="w-full p-2 font_standard transition-all flex items-center list_hover gap-2"
+                        >
+                          <MdDelete /> Delete
+                        </li>
+                      </ul>
+                    </div>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+export default ProductList;
