@@ -29,6 +29,8 @@ import { useEffect, useState } from "react";
 const Home = () => {
   const targetDate = "2024-06-01T23:59:59";
 
+
+
   const calculateTimeLeft = () => {
     const difference = +new Date(targetDate) - +new Date();
     let timeLeft = {};
@@ -56,6 +58,7 @@ const Home = () => {
 
     return () => clearTimeout(timer);
   }, [timeLeft]);
+
 
   return (
     <div className="home">

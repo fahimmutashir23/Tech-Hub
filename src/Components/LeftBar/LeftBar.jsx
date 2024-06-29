@@ -1,23 +1,148 @@
 
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-import './LeftBar.css'
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { BiSolidDashboard } from "react-icons/bi";
+import { HiUserGroup } from "react-icons/hi2";
+import { MdContactPage } from "react-icons/md";
+import { MdLibraryBooks } from "react-icons/md";
+import { FaImages, FaUserAlt, FaVideo } from "react-icons/fa";
+import { IoSettingsSharp } from "react-icons/io5";
 import { BasicContext } from "../../ContextAPIs/BasicProvider";
-import AdminMenu from "../../Pages/AdminPages/MenuBar/AdminMenu";
-
+import useSmallScreen from "../../Hooks/useSmallScreen";
 
 const LeftBar = () => {
-    const { sidebarOpen, setSideBarOpen } = useContext(BasicContext);
+  const [selected, setSelected] = useState('');
+  const location = useLocation();
+  const {setOpen} = useContext(BasicContext);
+  const [isSmallScreen] = useSmallScreen();
 
-    return (
-        <div className="bg-green-100 min-h-[calc(100vh-76px)] text-_white w-full overflow-y-scroll overflow-x-hidden sidebar relative">
-            <AdminMenu />
-            <div className="cursor-pointer absolute top-[50%] translate-y-[-50%] -right-3 " onClick={() => setSideBarOpen(!sidebarOpen)}>
-                {sidebarOpen ? <MdKeyboardArrowRight className='text-text_xxxl' /> :
-                <MdKeyboardArrowLeft className='text-text_xxxl' />}
+
+  useEffect(() => {
+    setSelected(location.pathname);
+  }, [location.pathname]);
+
+  const handleClick = (path) => {
+    setSelected(path);
+    if(isSmallScreen){
+      setOpen(false)
+    }
+  };
+
+
+
+  return (
+    <div className="shadow-md bg-gray-100 h-screen overflow-y-auto text-black p-pl_16px font_sans ">
+      <div className=" rounded  w-full">
+        <img className=" mx-auto  mb-[18px]rounded h-20 object-contain w-full" src="" alt="dfdf" />
+      </div>
+      <div className="flex flex-col justify-between padding_left padding_right ">
+        <ul className="w-full">
+          {<li className="duration-200">
+              <p className="w-full duration-200 font-bold text-text_sm text-text_sidebar mt-mt_4px mb-mt_4px font_sans">
+                Admin panel
+              </p>
+            <ul className="overflow-hidden transition-all duration-500 ease-in-out font_sans">
+              {
+              <li className={` px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${selected === '/admin/member' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected ' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-slate-100 '}`}
+                onClick={() => handleClick('/admin/member')}>
+                <Link to='/admin/member' className="flex items-center gap-gap_6px py-pt_primary">
+                  <span className="bg-bg_selected text-white p-pl_primary rounded-rounded_primary text-text_md">
+                    <HiUserGroup />
+                  </span>
+                  <span className="text-text_md font_sans font-medium ">
+                    Member List
+                  </span>
+                </Link>
+              </li>}
+              {
+              <li className={` px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200  ${selected === '/admin/bookings' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-slate-100 '}`}
+                onClick={() => handleClick('/admin/bookings')}>
+
+                <Link to='/admin/bookings' className="flex items-center gap-gap_6px py-pt_primary">
+                  <span className="bg-bg_selected text-white p-pl_primary rounded-rounded_primary text-text_md">
+                    <MdLibraryBooks />
+                  </span>
+                  <span className="text-text_md font_sans font-medium ">
+                    Mejban List
+                  </span>
+                </Link>
+              </li>}
+              {
+              <li className={` px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${selected === '/admin/contact' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected ' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-slate-100 '}`}
+                onClick={() => handleClick('/admin/contact')}>
+                <Link to='/admin/contact' className="flex items-center  gap-gap_6px py-pt_primary">
+                  <span className="bg-bg_selected text-white p-pl_primary rounded-rounded_primary text-text_md">
+                    <MdContactPage />
+                  </span>
+                  <span className="text-text_md font_sans font-medium ">
+                    Contact List
+                  </span>
+                </Link>
+              </li>}
+              {<li className={`py-pt_primary px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${selected === '/admin/imageList' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected ' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-slate-100 '}`}
+                onClick={() => handleClick('/admin/imageList')}>
+                <Link to='/admin/imageList' className="flex items-center  gap-gap_6px">
+                  <span className="bg-bg_selected text-white p-pl_primary rounded-rounded_primary text-text_md">
+                    <FaImages />
+                  </span>
+                  <span className="text-text_md font_sans font-medium ">
+                    Image List
+                  </span>
+                </Link>
+              </li>}
+              {
+              <li className={`py-pt_primary px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${selected === '/admin/videoList' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected ' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-slate-100 '}`}
+                onClick={() => handleClick('/admin/videoList')}>
+                <Link to='/admin/videoList' className="flex items-center  gap-gap_6px">
+                  <span className="bg-bg_selected text-white p-pl_primary rounded-rounded_primary text-text_md">
+                    <FaVideo />
+                  </span>
+                  <span className="text-text_md font_sans font-medium ">
+                    Video List
+                  </span>
+                </Link>
+              </li>}
+            </ul>
+          </li>}
+          { <li className="group hover:cursor-pointer duration-200">
+            <div
+              className="flex items-center justify-between duration-200"
+            >
+              <p className=" w-full duration-200 font-bold text-text_sm text-text_sidebar mt-mt_4px mb-mt_4px font_sans">
+                Administrative
+              </p>
             </div>
-        </div>
-    );
+            <ul className="overflow-hidden transition-all duration-500 ease-in-out">
+              {
+              <li className={` px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${selected === '/admin/user' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected ' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-slate-100 '}`}
+                onClick={() => handleClick('/admin/user')}>
+                <Link to='/admin/user' className="flex items-center gap-gap_6px py-pt_primary">
+                  <span className="bg-bg_selected text-white p-pl_primary rounded-rounded_primary text-text_md">
+                    <FaUserAlt />
+                  </span>
+                  <span className="text-text_md font_sans font-medium">
+                  User List
+                  </span>
+                </Link>
+              </li>}
+              {<li className={` px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${selected === '/admin/roleList' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected ' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-slate-100 '}`}
+                onClick={() => handleClick('/admin/roleList')}>
+                <Link to='/admin/roleList' className="flex items-center  gap-gap_6px py-pt_primary">
+                  <span className="bg-bg_selected text-white p-pl_primary rounded-rounded_primary text-text_md">
+                    <IoSettingsSharp />
+                  </span>
+                  <span className="text-text_md font_sans font-medium">
+                    User Role
+                  </span>
+                </Link>
+              </li>}
+            </ul>
+          </li>}
+        </ul>
+      </div>
+    </div>
+  );
 };
 
 export default LeftBar;
+
