@@ -5,11 +5,11 @@ import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import AddProductModal from "./AddProductModal";
 import Loader from "../../../Utils/Loader";
-import UpdateProductModal from "./UpdateProductModal";
+import AddCategoryModal from "./AddCategoryModal";
+import UpdateCategoryModal from "./UpdateCategoryModal";
 
-const ProductList = () => {
+const CategoryList = () => {
   const [popOpen, setPopOpen] = useState(null);
   const axiosSecure = useAxiosSecure();
   const [isOpen, setIsOpen] = useState(false);
@@ -23,22 +23,22 @@ const ProductList = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["product"],
+    queryKey: ["category"],
     queryFn: async () => {
-      const res = await axiosSecure("/api/get-product-list");
+      const res = await axiosSecure("/api/get-category-list");
       return res.data;
     },
   });
 
   const handleUpdate = async () => {
-    setIsOpen(true)
+    setIsOpen(true);
   };
 
   const handleDelete = async (id) => {
     try {
-      const res = await axiosSecure.delete(`/api/delete-product/${id}`);
+      const res = await axiosSecure.delete(`/api/delete-category/${id}`);
       if (res.data) {
-        toast.success("Product Deleted Successfully");
+        toast.success("Category Deleted Successfully");
         refetch();
       }
     } catch (error) {
@@ -49,7 +49,6 @@ const ProductList = () => {
   if (isLoading) {
     return <Loader />;
   }
-  
   return (
     <div className=" rounded-md py-2 px-3">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-0  w-full">
@@ -61,7 +60,7 @@ const ProductList = () => {
               All( {products.result.length} )
             </button>
           </div>
-          <AddProductModal fetchData={refetch} />
+          <AddCategoryModal fetchData={refetch} />
         </div>
       </div>
       <div className="overflow-x-auto pb-32 ">
@@ -69,10 +68,7 @@ const ProductList = () => {
           {/* head */}
           <thead className="h-[40px]">
             <tr className="uppercase text-center h-[40px] bg-gray-700 text-white font-bold ">
-              <th className="text-lg border">Product Name</th>
-              <th className="text-lg border">Product Category</th>
-              <th className="text-lg border">Price</th>
-              <th className="text-lg border">Brand</th>
+              <th className="text-lg border">Category Name</th>
               <th className="text-lg border">Actions</th>
             </tr>
           </thead>
@@ -83,21 +79,6 @@ const ProductList = () => {
                   className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
                 >
                   {data.name}
-                </td>
-                <td
-                  className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
-                >
-                  {data.category}
-                </td>
-                <td
-                  className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
-                >
-                  {data.price}
-                </td>
-                <td
-                  className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
-                >
-                  {data.brand}
                 </td>
                 <td className="border ">
                   <button
@@ -128,7 +109,7 @@ const ProductList = () => {
                     </div>
                   </button>
                 </td>
-                <UpdateProductModal id={data._id} fetchData={refetch} isOpen={isOpen} setIsOpen={setIsOpen} />
+                <UpdateCategoryModal id={data._id} fetchData={refetch} isOpen={isOpen} setIsOpen={setIsOpen} />
               </tr>
             ))}
           </tbody>
@@ -138,4 +119,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default CategoryList;

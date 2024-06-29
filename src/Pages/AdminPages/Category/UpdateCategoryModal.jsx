@@ -6,15 +6,15 @@ import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
-const UpdateProductModal = ({ fetchData, id, isOpen, setIsOpen }) => {
+const UpdateCategoryModal = ({ fetchData, id, isOpen, setIsOpen }) => {
   const [animate, setAnimate] = useState(false);
   const axiosSecure = useAxiosSecure();
   
 
   const { data: editFloorData = [], isLoading } = useQuery({
-    queryKey: ["product_edit"],
+    queryKey: ["category_edit"],
     queryFn: async () => {
-      const res = await axiosSecure(`/api/get-single-product/${id}`);
+      const res = await axiosSecure(`/api/get-single-category/${id}`);
       return res.data.result;
     },
   });
@@ -29,18 +29,13 @@ const UpdateProductModal = ({ fetchData, id, isOpen, setIsOpen }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const name = e.target.name.value;
-    const brand = e.target.brand.value;
-    const price = e.target.price.value;
     const category = e.target.category.value;
-    const image = e.target.image.files[0];
-    const details = e.target.details.value;
     const info = {
-      name, brand, price, image: image.name, details, category
+       name: category
     }
 
     try {
-      const res = await axiosSecure.put(`/api/update-product/${id}`, info);
+      const res = await axiosSecure.put(`/api/update-category/${id}`, info);
       if (res.data.status_code === 200) {
         fetchData();
         toast.success(res.data.message);
@@ -98,55 +93,7 @@ const UpdateProductModal = ({ fetchData, id, isOpen, setIsOpen }) => {
                       </button>
                     </Dialog.Title>
                     <form onSubmit={handleSubmit}>
-                      <div className="m-4 grid grid-cols-1 lg:grid-cols-2 gap-2">
-                        <div className="">
-                          <label className="font-semibold">
-                            Product Name
-                            <span className="text-red-400 ml-1">
-                              (required)
-                            </span>{" "}
-                          </label>
-                          <input
-                            type="text"
-                            name="name"
-                            defaultValue={editFloorData?.name}
-                            className="bg-white h-12 focus:ring-0 px-4 focus:border w-full focus:outline-none border border-black"
-                            placeholder="Type Here"
-                            required
-                          />
-                        </div>
-                        <div className="">
-                          <label className="font-semibold">
-                            Brand Name
-                            <span className="text-red-400 ml-1">
-                              (required)
-                            </span>{" "}
-                          </label>
-                          <input
-                            type="text"
-                            name="brand"
-                            defaultValue={editFloorData?.brand}
-                            className="bg-white h-12 focus:ring-0 px-4 focus:border w-full focus:outline-none border border-black"
-                            placeholder="Type Here"
-                            required
-                          />
-                        </div>
-                        <div className="">
-                          <label className="font-semibold">
-                            Product Price
-                            <span className="text-red-400 ml-1">
-                              (required)
-                            </span>{" "}
-                          </label>
-                          <input
-                            type="number"
-                            name="price"
-                            defaultValue={editFloorData?.price}
-                            className="bg-white h-12 focus:ring-0 px-4 focus:border w-full focus:outline-none border border-black"
-                            placeholder="Type Here"
-                            required
-                          />
-                        </div>
+                      <div className="m-4">
                         <div className="">
                           <label className="font-semibold">
                             Product Category
@@ -157,42 +104,13 @@ const UpdateProductModal = ({ fetchData, id, isOpen, setIsOpen }) => {
                           <input
                             type="text"
                             name="category"
-                            defaultValue={editFloorData?.category}
+                            defaultValue={editFloorData?.name}
                             className="bg-white h-12 focus:ring-0 px-4 focus:border w-full focus:outline-none border border-black"
                             placeholder="Type Here"
                             required
                           />
                         </div>
-                        <div className="">
-                          <label className="font-semibold">
-                            Product Image
-                            <span className="text-red-400 ml-1">
-                              (required)
-                            </span>{" "}
-                          </label>
-                          <input
-                            type="file"
-                            name="image"
-                            className="bg-white mt-3 focus:ring-0 px-4 focus:border w-full focus:outline-none"
-                            placeholder="Type Here"
-                          />
-                        </div>
                       </div>
-                        <div className="px-4">
-                          <label className="font-semibold">
-                            Product Details
-                            <span className="text-red-400 ml-1">
-                              (required)
-                            </span>{" "}
-                          </label>
-                          <textarea 
-                          name="details"
-                          defaultValue={editFloorData?.details}
-                            className="bg-white focus:ring-0 px-4 focus:border w-full focus:outline-none border border-black"
-                            placeholder="Type Here"
-                            required 
-                            rows="5"></textarea>
-                        </div>
                       <div className="border text-xl bg-gray-700 flex items-center justify-between">
                         <button
                           onClick={() => setIsOpen(false)}
@@ -221,4 +139,4 @@ const UpdateProductModal = ({ fetchData, id, isOpen, setIsOpen }) => {
   );
 };
 
-export default UpdateProductModal;
+export default UpdateCategoryModal;

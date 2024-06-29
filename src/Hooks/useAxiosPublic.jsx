@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const axiosInstance = axios.create({
-  baseURL: 'https://itder.com'
+  baseURL: 'http://localhost:5000'
 })
 
 const useAxiosPublic = () => {

@@ -49,7 +49,7 @@ const AddProductModal = ({ fetchData }) => {
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="text-text_lg bg-green-500 text-white px-5 py-2 font-bold duration-500 flex items-center gap-2"
+          className="text-text_lg bg-gray-700 text-white px-5 py-2 font-bold duration-500 flex items-center gap-2"
         >
           <IoAddCircleOutline className="text-2xl font-bold" />
           <span className="mt-1">Add Product</span>

@@ -1,18 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
+import { GrStatusUnknown } from "react-icons/gr";
 import { toast } from "react-toastify";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import AddProductModal from "./AddProductModal";
 import Loader from "../../../Utils/Loader";
-import UpdateProductModal from "./UpdateProductModal";
 
-const ProductList = () => {
+const BookingsList = () => {
   const [popOpen, setPopOpen] = useState(null);
   const axiosSecure = useAxiosSecure();
-  const [isOpen, setIsOpen] = useState(false);
 
   const togglePopOpen = (idx) => {
     setPopOpen((prevIdx) => (prevIdx === idx ? null : idx));
@@ -23,22 +20,19 @@ const ProductList = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["product"],
+    queryKey: ["bookings"],
     queryFn: async () => {
-      const res = await axiosSecure("/api/get-product-list");
+      const res = await axiosSecure("/api/get-bookings-list");
       return res.data;
     },
   });
 
-  const handleUpdate = async () => {
-    setIsOpen(true)
-  };
 
   const handleDelete = async (id) => {
     try {
-      const res = await axiosSecure.delete(`/api/delete-product/${id}`);
+      const res = await axiosSecure.delete(`/api/delete-booking/${id}`);
       if (res.data) {
-        toast.success("Product Deleted Successfully");
+        toast.success(res.data.message);
         refetch();
       }
     } catch (error) {
@@ -46,10 +40,26 @@ const ProductList = () => {
     }
   };
 
+  const handleActiveInactive = async (id, statusCode) => {
+    try {
+      const status = {
+      status : statusCode === 'pending' ? 'confirm' : 'pending'
+      }
+      const res = await axiosSecure.put(`/api/update-booking/${id}`, status);
+      if (res.data) {
+        toast.success("Bookings Update Successfully");
+        refetch();
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
+
+
   if (isLoading) {
     return <Loader />;
   }
-  
   return (
     <div className=" rounded-md py-2 px-3">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-0  w-full">
@@ -61,7 +71,7 @@ const ProductList = () => {
               All( {products.result.length} )
             </button>
           </div>
-          <AddProductModal fetchData={refetch} />
+          {/* <AddCategoryModal fetchData={refetch} /> */}
         </div>
       </div>
       <div className="overflow-x-auto pb-32 ">
@@ -69,10 +79,13 @@ const ProductList = () => {
           {/* head */}
           <thead className="h-[40px]">
             <tr className="uppercase text-center h-[40px] bg-gray-700 text-white font-bold ">
-              <th className="text-lg border">Product Name</th>
-              <th className="text-lg border">Product Category</th>
+            <th className="text-lg border w-3/12">Customer Name</th>
+            <th className="text-lg border w-2/12">Product Name</th>
+              <th className="text-lg border w-1/12">Category</th>
               <th className="text-lg border">Price</th>
+              <th className="text-lg border">QTY</th>
               <th className="text-lg border">Brand</th>
+              <th className="text-lg border">Status</th>
               <th className="text-lg border">Actions</th>
             </tr>
           </thead>
@@ -80,9 +93,14 @@ const ProductList = () => {
             {products.result.map((data, idx) => (
               <tr key={idx}>
                 <td
-                  className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
+                  className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-left border  text-black `}
                 >
                   {data.name}
+                </td>
+                <td
+                  className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
+                >
+                  {data.productName}
                 </td>
                 <td
                   className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
@@ -97,7 +115,17 @@ const ProductList = () => {
                 <td
                   className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
                 >
+                  {data.quantity}
+                </td>
+                <td
+                  className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
+                >
                   {data.brand}
+                </td>
+                <td
+                  className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black`}
+                >
+                  <span className={`${data.status === 'pending' ? "bg_status_secondary" : "bg_status_primary"}`}>{data.status}</span>
                 </td>
                 <td className="border ">
                   <button
@@ -112,23 +140,22 @@ const ProductList = () => {
                     >
                       <ul className="text-black text-left">
                         <li
-                          onClick={() => handleUpdate(data._id)}
-                          className="w-full p-2 font_standard transition-all flex items-center list_hover gap-2"
-                        >
-                          <BiEdit />
-                          Update
-                        </li>
-                        <li
                           onClick={() => handleDelete(data._id)}
                           className="w-full p-2 font_standard transition-all flex items-center list_hover gap-2"
                         >
                           <MdDelete /> Delete
                         </li>
+                        <li
+                          onClick={() => handleActiveInactive(data._id, data.status)}
+                          className="w-full p-2 font_standard transition-all flex items-center list_hover gap-2"
+                        >
+                         <GrStatusUnknown />
+                         {data.status === 'pending' ? 'Confirm' : 'Pending'}
+                        </li>
                       </ul>
                     </div>
                   </button>
                 </td>
-                <UpdateProductModal id={data._id} fetchData={refetch} isOpen={isOpen} setIsOpen={setIsOpen} />
               </tr>
             ))}
           </tbody>
@@ -138,4 +165,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default BookingsList;

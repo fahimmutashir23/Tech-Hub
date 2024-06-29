@@ -42,19 +42,19 @@
 .bg_status_primary{
   background-color: #DDDBFB;
   font-size: 12px;
-  padding: 1px 10px;
+  padding: 4px 12px;
   color: #9D95F4;
 }
 .bg_status_secondary{
   background-color: #EAEBEC;
   font-size: 12px;
-  padding: 1px 10px;
+  padding: 4px 12px;
   color: #C0C2C5;
 }
 .bg_status_success{
   background-color: #CBF2DC;
   font-size: 12px;
-  padding: 1px 10px;
+  padding: 4px 12px;
   color: #28C76F;
 }
 

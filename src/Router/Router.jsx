@@ -10,6 +10,11 @@ import Event from "../Pages/About/Event";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import AdminHome from "../Pages/AdminPages/AdminHome/AdminHome";
 import ProductList from "../Pages/AdminPages/ProductList/ProductList";
+import CategoryList from "../Pages/AdminPages/Category/CategoryList";
+import BookingsList from "../Pages/AdminPages/Bookings/BookingsList";
+import AdminLogin from "../Pages/AdminPages/AdminAuth/AdminLogin";
+import AdminRegistration from "../Pages/AdminPages/AdminAuth/AdminRegistration";
+import CheckLogin from "../Security/CheckLogin";
 
 
 const Router = createBrowserRouter([
@@ -50,7 +55,7 @@ const Router = createBrowserRouter([
     },
     {
         path: '/admin',
-        element: <DashboardLayout />,
+        element: <CheckLogin><DashboardLayout /></CheckLogin>,
         children: [
             {
                 path: '/admin',
@@ -59,9 +64,29 @@ const Router = createBrowserRouter([
             {
                 path: '/admin/productList',
                 element: <ProductList />
-            }
+            },
+            {
+                path: '/admin/categoryList',
+                element: <CategoryList />
+            },
+            {
+                path: '/admin/bookingsList',
+                element: <BookingsList />
+            },
+            {
+                path: '/admin/bookingsList',
+                element: <BookingsList />
+            },
         ]
-    }
+    },
+    {
+        path: '/admin/login',
+        element: <AdminLogin />
+    },
+    {
+        path: '/admin/register',
+        element: <AdminRegistration />
+    },
 ])
 
 
