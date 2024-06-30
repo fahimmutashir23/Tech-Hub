@@ -23,9 +23,11 @@ const AdminLogin = () => {
           refetch();
         }
       } catch (err) {
-        toast.error(err.response.data.message);
+        toast.error(err.message);
       }
     };
+
+
     return (
       <div className="min-h-screen max-w-xl mx-auto flex justify-center items-center w-full px-2">
         <div className="w-full">

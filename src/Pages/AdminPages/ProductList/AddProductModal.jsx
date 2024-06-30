@@ -6,10 +6,11 @@ import { toast } from "react-toastify";
 import { IoAddCircleOutline } from "react-icons/io5";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
-const AddProductModal = ({ fetchData }) => {
+const AddProductModal = ({ fetchData, setLoader }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [animate, setAnimate] = useState(false);
   const axiosSecure = useAxiosSecure();
+  
   
 
   const handleAnimate = () => {
@@ -21,25 +22,34 @@ const AddProductModal = ({ fetchData }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoader(true)
     const name = e.target.name.value;
     const brand = e.target.brand.value;
     const price = e.target.price.value;
     const category = e.target.category.value;
-    const image = e.target.image.files[0];
+    const images = e.target.image.files[0];
     const details = e.target.details.value;
-    const info = {
-      name, brand, price, image: image.name, details, category
-    }
+
+    const formData = new FormData()
+    formData.append('name', name)
+    formData.append('price', price)
+    formData.append('brand', brand)
+    formData.append('category', category)
+    formData.append('details', details)
+    formData.append('images', images)
 
     try {
-      const res = await axiosSecure.post("/api/create-product", info);
-      if (res.data.status_code === 200) {
+      const res = await axiosSecure.post("/api/create-product", formData);
+      if (res.data.success) {
+        setIsOpen(false)
         fetchData();
         toast.success(res.data.message);
         e.target.reset()
+        setLoader(false)
       }
     } catch (error) {
-        toast.error(error.response.data.message)
+        toast.error(error.message)
+        setLoader(false)
     }
   };
 
@@ -85,7 +95,7 @@ const AddProductModal = ({ fetchData }) => {
                   <Dialog.Panel className="w-[96%] md:w-[90%] lg:w-[75%] xl:w-[910px] max-w-md:w-[60%] transform rounded-md text-left align-middle shadow-xl transition-all my-10 pb-0 bg-white">
                     <Dialog.Title
                       as="h3"
-                      className="border px-4 text-xl bg-green-100 flex items-center justify-between h-14"
+                      className="border px-4 text-xl bg-gray-700 text-white flex items-center justify-between h-14"
                     >
                       <h6 className="py-2 text-2xl font-semibold">Add Product</h6>
                       <button
@@ -187,17 +197,16 @@ const AddProductModal = ({ fetchData }) => {
                             required 
                             rows="5"></textarea>
                         </div>
-                      <div className="border text-xl bg-green-100 flex items-center justify-between">
+                      <div className="border text-xl bg-gray-700 flex items-center justify-between">
                         <button
-                          onClick={() => setIsOpen(false)}
                           type="submit"
-                          className="text-text_lg bg-green-500 text-white px-5 font-bold duration-500 h-14"
+                          className="button_primary"
                         >
                           Save
                         </button>
                         <button
                           type="button"
-                          className="text-text_lg bg-green-500 text-white px-5 h-14 font-bold duration-500 "
+                          className="button_secondary"
                           onClick={() => setIsOpen(false)}
                         >
                           Cancel

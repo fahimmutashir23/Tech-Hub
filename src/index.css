@@ -116,6 +116,18 @@
   transition: 0.3s all ease-in-out;
 }
 
+.btn-disabled{
+  background-color: #6f00ff;
+  color: white;
+  border-radius: 2px;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 14px;
+  border: none;
+}
+
+/* ======================= button end =================== */
+
 .swiper-button-prev {
   color: #00964A !important;
   position: absolute !important;

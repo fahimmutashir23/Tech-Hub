@@ -4,18 +4,17 @@ import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { OrderContext } from "../../ContextAPIs/OrderProvider";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import Loader2 from "../../Utils/Loader2";
+import { useNavigate } from "react-router-dom";
 
 const OrderPage = () => {
   const axiosPublic = useAxiosPublic();
   const [bookingData, setBookingData] = useState([]);
   const { setCartCall, cartCall } = useContext(OrderContext);
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
-  const [email, setEmail] = useState("");
-  const [details, setDetails] = useState("");
-  const [address, setAddress] = useState("");
-  // const [Quantity, setQuantity] = useState(null);
   const [amount, setAmount] = useState(0);
+  const [loader, setLoader] = useState(false)
+  const navigate = useNavigate();
+
 
   const getLocalStorage = () => {
     const bookingData = JSON.parse(localStorage.getItem("productDraft"));
@@ -44,14 +43,24 @@ const OrderPage = () => {
     setCartCall(!cartCall);
   };
 
-  const handleSaveData = () => {
+  const handleSaveData = (e) => {
+    e.preventDefault()
+    const name = e.target.name.value
+    const phone = e.target.phone.value
+    const email = e.target.email.value
+    const details = e.target.details.value
+    const address = e.target.address.value
     const saveInfo = {
       name: name,
       email: email,
-      phone: number,
+      phone: phone,
       address: address,
       details: details,
-      productId: bookingData.map((item) => item._id),
+      products:
+        bookingData.map((item) => (
+          {productId: item._id, quantity: item.quantity}
+        ))
+      ,
       price: amount,
     };
 
@@ -64,6 +73,7 @@ const OrderPage = () => {
       confirmButtonText: "Yes, Booking it!"
     }).then((result) => {
       if (result.isConfirmed) {
+        setLoader(true)
         axiosPublic.post("/api/save-bookings", saveInfo)
         .then(res => {
           if(res.data.status_code === 200){
@@ -71,26 +81,25 @@ const OrderPage = () => {
             toast.success('Successfully Booked')
             getLocalStorage()
             setCartCall(!cartCall)
-            setName("")
-            setEmail("")
-            setNumber("")
-            setDetails("")
-            setAddress("")
+            e.target.reset()
+            setLoader(false)
+            navigate('/invoice', {state: res.data.result})
           }
-        })
+        }).catch(err => console.log(err))
       }
     });
   };
 
   return (
     <div className="max-w-7xl mx-auto">
+      {loader && <Loader2 />}
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col-reverse md:flex-row gap-4 mt-6">
           <div className="md:w-2/3 bg-primary2 p-2 border-t-[5px] border-t-primary3 rounded-md">
             <div className="px-2 py-4">
               <h1 className="font-semibold text-xl">Contact Information</h1>
               <hr className="my-2" />
-              <div>
+              <form onSubmit={handleSaveData}>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                   <div className="w-full">
                     <label className="block mb-2 text-sm font-medium text-gray-900">
@@ -102,7 +111,6 @@ const OrderPage = () => {
                       name="name"
                       className="shadow-sm bg-primary4 border border-primary5 text-gray-900 text-sm rounded-sm focus:outline-none block w-full p-2.5"
                       placeholder="Your Name"
-                      onChange={(e) => setName(e.target.value)}
                       required
                     />
                   </div>
@@ -115,7 +123,6 @@ const OrderPage = () => {
                       type="number"
                       name="phone"
                       className="shadow-sm bg-primary4 border border-primary5 text-gray-900 text-sm rounded-sm focus:outline-none block w-full p-2.5"
-                      onChange={(e) => setNumber(e.target.value)}
                       placeholder="01700000000"
                       required
                     />
@@ -126,10 +133,10 @@ const OrderPage = () => {
                     </label>
                     <input
                       type="email"
-                      name="nameUnderBooking"
+                      name="email"
                       className="shadow-sm bg-primary4 border border-primary5 text-gray-900 text-sm rounded-sm block w-full p-2.5 focus:outline-none"
-                      onChange={(e) => setEmail(e.target.value)}
                       placeholder="email@gmail.com"
+                      required
                     />
                   </div>
                 </div>
@@ -142,9 +149,8 @@ const OrderPage = () => {
                     <textarea
                       name="details"
                       className="shadow-sm bg-primary4 border border-primary5 text-gray-900 text-sm rounded-sm focus:outline-none block w-full p-2.5"
-                      onChange={(e) => setDetails(e.target.value)}
                       placeholder="Details"
-                      id=""
+                      required
                     ></textarea>
                   </div>
                   <div className="w-full mt-4">
@@ -155,22 +161,21 @@ const OrderPage = () => {
                     <textarea
                       name="address"
                       className="shadow-sm bg-primary4 border border-primary5 text-gray-900 text-sm rounded-sm focus:outline-none block w-full p-2.5"
-                      onChange={(e) => setAddress(e.target.value)}
                       placeholder="Address"
-                      id=""
+                      required
                     ></textarea>
                   </div>
                 </div>
                 <div className="flex justify-between mt-mt_primary">
-                  <button onClick={handleSaveData} className="button_primary">
+                  <button type="submit" className={`${bookingData ? "button_primary" : "btn-disabled"}`}>
                     {"Confirm Booking"}
                   </button>
-                  <button className="button_primary">
+                  <button className="btn-disabled">
                     Total Price:{" "}
                     <span className="font-semibold">{amount}/-</span>
                   </button>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
           <div className="md:w-1/3">

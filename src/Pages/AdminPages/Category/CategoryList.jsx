@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
@@ -8,11 +8,17 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Loader from "../../../Utils/Loader";
 import AddCategoryModal from "./AddCategoryModal";
 import UpdateCategoryModal from "./UpdateCategoryModal";
+import useGetCollectionLength from "../../../Hooks/useGetCollectionLength";
+import { Paginator } from "primereact/paginator";
 
 const CategoryList = () => {
   const [popOpen, setPopOpen] = useState(null);
   const axiosSecure = useAxiosSecure();
   const [isOpen, setIsOpen] = useState(false);
+  const [collectionData, collectionLoading] = useGetCollectionLength();
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(10);
+  const [page, setPage] = useState(0)
 
   const togglePopOpen = (idx) => {
     setPopOpen((prevIdx) => (prevIdx === idx ? null : idx));
@@ -25,7 +31,7 @@ const CategoryList = () => {
   } = useQuery({
     queryKey: ["category"],
     queryFn: async () => {
-      const res = await axiosSecure("/api/get-category-list");
+      const res = await axiosSecure(`/api/get-category-list?page=${page}&limit=${rows}`);
       return res.data;
     },
   });
@@ -46,9 +52,20 @@ const CategoryList = () => {
     }
   };
 
-  if (isLoading) {
+  const onPageChange = (event) => {
+    setFirst(event.first);
+    setRows(event.rows);
+    setPage(event.page);
+  };
+
+  useEffect(() => {
+    refetch()
+  }, [page])
+
+  if (isLoading || collectionLoading) {
     return <Loader />;
   }
+
   return (
     <div className=" rounded-md py-2 px-3">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-0  w-full">
@@ -57,7 +74,7 @@ const CategoryList = () => {
             <button
               className={`text-text_lg bg-gray-700 text-white px-5 py-2 font-bold duration-500`}
             >
-              All( {products.result.length} )
+              All( {collectionData.category} )
             </button>
           </div>
           <AddCategoryModal fetchData={refetch} />
@@ -114,6 +131,7 @@ const CategoryList = () => {
             ))}
           </tbody>
         </table>
+        <Paginator className="bg-gray-700 max-w-fit mx-auto mt-2 text-white" first={first} rows={rows} totalRecords={collectionData.category} onPageChange={onPageChange} />
       </div>
     </div>
   );

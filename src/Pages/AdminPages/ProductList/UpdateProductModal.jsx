@@ -35,14 +35,19 @@ const UpdateProductModal = ({ fetchData, id, isOpen, setIsOpen }) => {
     const brand = e.target.brand.value;
     const price = e.target.price.value;
     const category = e.target.category.value;
-    const image = e.target.image.files[0];
+    const image = e.target?.image?.files[0] || null;
     const details = e.target.details.value;
-    const info = {
-      name, brand, price, image: image.name, details, category
-    }
+
+    const formData = new FormData()
+    formData.append('name', name)
+    formData.append('price', price)
+    formData.append('brand', brand)
+    formData.append('category', category)
+    formData.append('details', details)
+    image && formData.append('images', image)
 
     try {
-      const res = await axiosSecure.put(`/api/update-product/${id}`, info);
+      const res = await axiosSecure.put(`/api/update-product/${id}`, formData);
       if (res.data.status_code === 200) {
         fetchData();
         toast.success(res.data.message);

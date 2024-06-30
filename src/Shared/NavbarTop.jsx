@@ -13,7 +13,7 @@ const NavbarTop = () => {
           <FaYoutube className="text-text_secondary" />
           <TiSocialLinkedin className="text-text_secondary" />
           <FaPinterestP className="text-text_secondary" />
-          <p className="text-text_gray">ISO 9000 : 2024 Certified Company</p>
+          <p className="text-gray-700">ISO 9000 : 2024 Certified Company</p>
         </div>
         
         <div className="lg:flex-1 mx-16 lg:mx-0">
@@ -41,11 +41,11 @@ const NavbarTop = () => {
         <div className="flex justify-center items-center gap-gap_primary">
           <p className="flex gap-gap_primary items-center mb-0">
             <IoIosMailOpen className="text-text_secondary" />
-            <span className="text-text_gray">+880 1581 868984</span>
+            <span className="text-gray-700">+880 1581 868984</span>
           </p>
           <p className="flex gap-gap_primary items-center">
             <BiPhoneCall className="text-text_secondary" />
-            <span className="text-text_gray">support@gmail.com</span>
+            <span className="text-gray-700">support@gmail.com</span>
           </p>
         </div>
       </div>

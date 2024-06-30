@@ -12,55 +12,55 @@ const Footer = () => {
         </h1>
         <div className="p-pl_primary border rounded-lg text-center">
           <h1 className="text-text_secondary font-semibold">Head Office:</h1>
-          <p className="text-text_gray">
+          <p className="text-gray-700">
             House-B/108, Road-08, Mohakhali DOSH, Mohakhali, Dhaka-1206
           </p>
-          <p className="text-text_gray">+880 1581868984</p>
+          <p className="text-gray-700">+880 1581868984</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gap_primary  mt-mt_medium">
+        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gap_primary  mt-mt_medium">
           <div className="p-pl_primary border rounded-lg text-left">
             <h1 className="text-text_secondary font-semibold">Head Office:</h1>
-            <p className="text-text_gray">
+            <p className="text-gray-700">
               House-B/108, Road-08, Mohakhali DOSH, Mohakhali, Dhaka-1206
             </p>
-            <p className="text-text_gray">+880 1581868984</p>
+            <p className="text-gray-700">+880 1581868984</p>
           </div>
           <div className="p-pl_primary border rounded-lg text-left">
             <h1 className="text-text_secondary font-semibold">Head Office:</h1>
-            <p className="text-text_gray">
+            <p className="text-gray-700">
               House-B/108, Road-08, Mohakhali DOSH, Mohakhali, Dhaka-1206
             </p>
-            <p className="text-text_gray">+880 1581868984</p>
+            <p className="text-gray-700">+880 1581868984</p>
           </div>
           <div className="p-pl_primary border rounded-lg text-left">
             <h1 className="text-text_secondary font-semibold">Head Office:</h1>
-            <p className="text-text_gray">
+            <p className="text-gray-700">
               House-B/108, Road-08, Mohakhali DOSH, Mohakhali, Dhaka-1206
             </p>
-            <p className="text-text_gray">+880 1581868984</p>
+            <p className="text-gray-700">+880 1581868984</p>
           </div>
           <div className="p-pl_primary border rounded-lg text-left">
             <h1 className="text-text_secondary font-semibold">Head Office:</h1>
-            <p className="text-text_gray">
+            <p className="text-gray-700">
               House-B/108, Road-08, Mohakhali DOSH, Mohakhali, Dhaka-1206
             </p>
-            <p className="text-text_gray">+880 1581868984</p>
+            <p className="text-gray-700">+880 1581868984</p>
           </div>
           <div className="p-pl_primary border rounded-lg text-left">
             <h1 className="text-text_secondary font-semibold">Head Office:</h1>
-            <p className="text-text_gray">
+            <p className="text-gray-700">
               House-B/108, Road-08, Mohakhali DOSH, Mohakhali, Dhaka-1206
             </p>
-            <p className="text-text_gray">+880 1581868984</p>
+            <p className="text-gray-700">+880 1581868984</p>
           </div>
           <div className="p-pl_primary border rounded-lg text-left">
             <h1 className="text-text_secondary font-semibold">Head Office:</h1>
-            <p className="text-text_gray">
+            <p className="text-gray-700">
               House-B/108, Road-08, Mohakhali DOSH, Mohakhali, Dhaka-1206
             </p>
-            <p className="text-text_gray">+880 1581868984</p>
+            <p className="text-gray-700">+880 1581868984</p>
           </div>
-        </div>
+        </div> */}
         <div className="flex flex-col items-center lg:flex-row lg:justify-between mt-mt_medium gap-10">
           <div className="lg:flex-1 w-full">
             <iframe
@@ -99,7 +99,7 @@ const Footer = () => {
                 <h1 className="text-text_lg mb-0 font-semibold text-text_secondary">
                   Email Address
                 </h1>
-                <h1 className="text-text_md mt-0 text-text_gray">
+                <h1 className="text-text_md mt-0 text-gray-700">
                   support@gmail.com
                 </h1>
               </div>
@@ -113,7 +113,7 @@ const Footer = () => {
                 <h1 className="text-text_lg mb-0 font-semibold text-text_secondary">
                   Phone Number
                 </h1>
-                <h1 className="text-text_md mt-0 text-text_gray">
+                <h1 className="text-text_md mt-0 text-gray-700">
                   +880 1581 868984
                 </h1>
               </div>

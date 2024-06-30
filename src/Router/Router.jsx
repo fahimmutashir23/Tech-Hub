@@ -17,6 +17,7 @@ import AdminRegistration from "../Pages/AdminPages/AdminAuth/AdminRegistration";
 import CheckLogin from "../Security/CheckLogin";
 import OrderPage from "../Pages/OrderPage/OrderPage";
 import ErrorPage from "../Utils/ErrorPage";
+import Invoice from "../Pages/AdminPages/Invoice/Invoice";
 
 
 const Router = createBrowserRouter([
@@ -56,6 +57,10 @@ const Router = createBrowserRouter([
             {
                 path: '/orderPage',
                 element : <OrderPage/>,
+            },
+            {
+                path: '/invoice',
+                element : <Invoice/>,
             },
         ]
     },
