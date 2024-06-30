@@ -8,10 +8,12 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import AddProductModal from "./AddProductModal";
 import Loader from "../../../Utils/Loader";
 import UpdateProductModal from "./UpdateProductModal";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 const ProductList = () => {
   const [popOpen, setPopOpen] = useState(null);
   const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
   const [isOpen, setIsOpen] = useState(false);
 
   const togglePopOpen = (idx) => {
@@ -25,7 +27,7 @@ const ProductList = () => {
   } = useQuery({
     queryKey: ["product"],
     queryFn: async () => {
-      const res = await axiosSecure("/api/get-product-list");
+      const res = await axiosPublic("/api/get-product-list");
       return res.data;
     },
   });

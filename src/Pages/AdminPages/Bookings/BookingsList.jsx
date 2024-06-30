@@ -84,7 +84,7 @@ const BookingsList = () => {
               <th className="text-lg border w-1/12">Category</th>
               <th className="text-lg border">Price</th>
               <th className="text-lg border">QTY</th>
-              <th className="text-lg border">Brand</th>
+              <th className="text-lg border">Address</th>
               <th className="text-lg border">Status</th>
               <th className="text-lg border">Actions</th>
             </tr>
@@ -100,12 +100,16 @@ const BookingsList = () => {
                 <td
                   className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
                 >
-                  {data.productName}
+                  {data.productId.map(product => (
+                    <li className="list-item" key={product._id}>{product.name}</li>
+                  ))}
                 </td>
                 <td
                   className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
                 >
-                  {data.category}
+                  {data.productId.map(product => (
+                    <li className="list-item" key={product._id}>{product.category}</li>
+                  ))}
                 </td>
                 <td
                   className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
@@ -115,12 +119,12 @@ const BookingsList = () => {
                 <td
                   className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
                 >
-                  {data.quantity}
+                  {data.productId.length}
                 </td>
                 <td
                   className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
                 >
-                  {data.brand}
+                  {data.address}
                 </td>
                 <td
                   className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black`}

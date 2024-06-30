@@ -3,15 +3,17 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { url } from "../../connection";
 
 const CheckLogin = ({ children }) => {
   const [go, setGo] = useState(false);
   const navigate = useNavigate()
   const token = localStorage.getItem("token");
+  const baseUrl = url
 
 
   useEffect(() => {
-    axios("http://localhost:5000/api/get-check-login", {
+    axios(`${baseUrl}/api/get-check-login`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

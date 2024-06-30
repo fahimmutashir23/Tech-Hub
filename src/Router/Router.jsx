@@ -15,12 +15,15 @@ import BookingsList from "../Pages/AdminPages/Bookings/BookingsList";
 import AdminLogin from "../Pages/AdminPages/AdminAuth/AdminLogin";
 import AdminRegistration from "../Pages/AdminPages/AdminAuth/AdminRegistration";
 import CheckLogin from "../Security/CheckLogin";
+import OrderPage from "../Pages/OrderPage/OrderPage";
+import ErrorPage from "../Utils/ErrorPage";
 
 
 const Router = createBrowserRouter([
     {
         path: '/',
         element: <Layout />,
+        errorElement: <ErrorPage />,
         children : [
             {
                 path: '/',
@@ -49,7 +52,10 @@ const Router = createBrowserRouter([
             {
                 path: '/hotProduct',
                 element : <HotProducts/>,
-           
+            },
+            {
+                path: '/orderPage',
+                element : <OrderPage/>,
             },
         ]
     },

@@ -1,19 +1,27 @@
-import { useEffect, useState } from "react";
 import add1 from "../../assets/asset/mobile and gaget/pngwing.com (10).png";
 import add2 from "../../assets/asset/mobile and gaget/pngwing.com (8).png";
 import add3 from "../../assets/asset/offers/pngwing.com (29).png";
 import ProductsCard from "./ProductsCard";
 import mobile3 from "../../assets/asset/mobile and gaget/pngwing.com (9).png";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import Loader from "../../Utils/Loader";
 
 const Products = () => {
-  const [products, setProducts] = useState([]);
+  const axiosPublic = useAxiosPublic();
 
-  useEffect(() => {
-    fetch("./data.json")
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
-  }, []);
+  const {
+    data: products = [],
+    isLoading,
+  } = useQuery({
+    queryKey: ["product-display"],
+    queryFn: async () => {
+      const res = await axiosPublic("/api/get-product-list");
+      return res.data.result;
+    },
+  });
 
+if(isLoading) return <Loader />
 
   return (
     <div>

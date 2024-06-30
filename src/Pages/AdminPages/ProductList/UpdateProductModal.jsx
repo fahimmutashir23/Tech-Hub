@@ -5,16 +5,18 @@ import { IoMdClose } from "react-icons/io";
 import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 const UpdateProductModal = ({ fetchData, id, isOpen, setIsOpen }) => {
   const [animate, setAnimate] = useState(false);
   const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
   
 
   const { data: editFloorData = [], isLoading } = useQuery({
     queryKey: ["product_edit"],
     queryFn: async () => {
-      const res = await axiosSecure(`/api/get-single-product/${id}`);
+      const res = await axiosPublic(`/api/get-single-product/${id}`);
       return res.data.result;
     },
   });

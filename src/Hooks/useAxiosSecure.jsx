@@ -1,7 +1,8 @@
 import axios from "axios";
+import { url } from "../../connection";
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: url,
 });
 
 const useAxiosSecure = () => {
