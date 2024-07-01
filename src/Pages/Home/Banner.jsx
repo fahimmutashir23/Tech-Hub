@@ -167,7 +167,7 @@ const Banner = () => {
 
 
 {/* gaming world section start */}
-      <section className=" mb-10 ">
+      <section className=" mb-10 px-2 ">
         <div data-aos="fade-up" data-aos-duration="1000">
           <h1 className="text-3xl font-semibold items-start pb-6 text-text_secondary">
             Gamer World

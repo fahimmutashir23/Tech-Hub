@@ -137,14 +137,14 @@ const BookingsList = () => {
                   className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
                 >
                   {data.products.map(product => (
-                    <li className="list-item" key={product._id}>{product.productId.name} ({product.quantity})</li>
+                    <li className="list-item" key={product._id}>{product?.productId?.name} ({product?.quantity})</li>
                   ))}
                 </td>
                 <td
                   className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
                 >
                   {data.products.map(product => (
-                    <li className="list-item" key={product._id}>{product.productId.category}</li>
+                    <li className="list-item" key={product._id}>{product.productId?.category}</li>
                   ))}
                 </td>
                 <td

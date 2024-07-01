@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { IoAddCircleOutline } from "react-icons/io5";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
-const AddProductModal = ({ fetchData, setLoader }) => {
+const AddProductModal = ({ fetchData, setLoader, collectionFetch }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [animate, setAnimate] = useState(false);
   const axiosSecure = useAxiosSecure();
@@ -43,13 +43,15 @@ const AddProductModal = ({ fetchData, setLoader }) => {
       if (res.data.success) {
         setIsOpen(false)
         fetchData();
+        collectionFetch()
         toast.success(res.data.message);
         e.target.reset()
         setLoader(false)
       }
     } catch (error) {
-        toast.error(error.message)
-        setLoader(false)
+      fetchData()
+      toast.error(error.response.data)
+      setLoader(false)
     }
   };
 

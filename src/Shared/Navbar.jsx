@@ -1,5 +1,4 @@
 import { Link, NavLink } from "react-router-dom";
-import { MdKeyboardArrowDown } from "react-icons/md";
 import MenuBar from "./MenuBar";
 import { RxCross1 } from "react-icons/rx";
 import { MdMenu } from "react-icons/md";
@@ -29,7 +28,7 @@ const Navbar = () => {
           </div>
           <Link to="/" className=" text-text_xl font-bold text-text_secondary px-2 md:px-0">
             {/* <img className="w-32" src={logo}alt="" /> */}
-            hgf
+            LOGO
           </Link>
         </div>
         <div className="navbar-end hidden lg:flex lg:flex-1 ">
@@ -39,7 +38,7 @@ const Navbar = () => {
                 Home
               </Link>
             </li>
-            <li className="relative group ">
+            {/* <li className="relative group ">
               <p className="text-text_secondary mb-0 font-semibold text-text_md flex items-center">
                 About Us{" "}
                 <span>
@@ -60,6 +59,20 @@ const Navbar = () => {
                   Event
                 </Link>
               </div>
+            </li> */}
+            <li className="relative group">
+              <p className="text-text_secondary mb-0 font-semibold text-text_md flex items-center">
+                <Link to={'/events'}>
+                Event
+                </Link>
+              </p>
+            </li>
+            <li className="relative group">
+              <p className="text-text_secondary mb-0 font-semibold text-text_md flex items-center">
+                <Link to={'/gallery'}>
+                About Us
+                </Link>
+              </p>
             </li>
             <li className="relative group">
               <p className="text-text_secondary mb-0 font-semibold text-text_md flex items-center">
@@ -88,11 +101,11 @@ const Navbar = () => {
         </div>
       </div>
       <div
-        className={`lg:hidden absolute top-48 ${
+        className={`lg:hidden absolute top-44 ${
           open ? "left-0" : "-left-[100%]"
         } duration-300 z-30 w-full md:3/5`}
       >
-        <MenuBar></MenuBar>
+        <MenuBar setOpen = {setOpen}></MenuBar>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { url } from "../../connection";
 
@@ -13,32 +13,34 @@ const CheckLogin = ({ children }) => {
 
 
   useEffect(() => {
-    axios(`${baseUrl}/api/get-check-login`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    if (!token) {
+      return (
+        toast.error("You are not login") && (
+          navigate('/admin/login')
+        )
+      );
+    } else {
+      axios(`${baseUrl}/api/get-check-login`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         if (res.data.status) {
           setGo(true);
+        } else{
+          return toast.error("You are not login") && (
+            navigate('/admin/login')
+          )
         }
       })
       .catch(() => {
         toast.error("You are not login") && navigate('/admin/login')
       });
+    }
   }, [token]);
 
-
-
-  if (!token) {
-    return (
-      toast.error("You are not login") && (
-        <Navigate to="/admin/login"></Navigate>
-      )
-    );
-  } else {
-    return go && children;
-  }
+  return go && children;
 };
 
 export default CheckLogin;

@@ -19,11 +19,11 @@ const ProductList = () => {
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
   const [isOpen, setIsOpen] = useState(false);
-  const [collectionData, collectionLoading] = useGetCollectionLength();
+  const [collectionData, collectionLoading, collectionFetch] = useGetCollectionLength();
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(10);
   const [page, setPage] = useState(0)
-  // const paginateBtn = totalPage && [...Array(totalPage).keys()];
+  // const paginateBtn = [...Array(10).keys()];
 
 
 
@@ -53,6 +53,7 @@ const ProductList = () => {
       if (res.data) {
         toast.success("Product Deleted Successfully");
         refetch();
+        collectionFetch()
       }
     } catch (error) {
       toast.error(error.response.data.message);
@@ -85,7 +86,7 @@ const ProductList = () => {
               All( {collectionData.product} )
             </button>
           </div>
-          <AddProductModal setLoader={setLoader} fetchData={refetch} />
+          <AddProductModal collectionFetch={collectionFetch} setLoader={setLoader} fetchData={refetch} />
         </div>
       </div>
       <div className="overflow-x-auto pb-32 ">

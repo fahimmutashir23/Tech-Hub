@@ -2,14 +2,17 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const useUser = () => {
-    const axiosPublic = useAxiosSecure();
+    const axiosSecure = useAxiosSecure();
+    const token = localStorage.getItem('token')
+ 
   
     const {data:userData = null, isLoading, refetch} = useQuery({
       queryKey : ['profile'],
       queryFn : async () => {
-        const res = await axiosPublic("/api/profile");
-        return res.data
-      }
+        const res = await axiosSecure("/api/profile");
+        return res.data.result
+      },
+      enabled: !!token
     })
     
     return [userData, isLoading, refetch]

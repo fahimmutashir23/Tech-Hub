@@ -11,11 +11,11 @@ const Footer = () => {
           our locations
         </h1>
         <div className="p-pl_primary border rounded-lg text-center">
-          <h1 className="text-text_secondary font-semibold">Head Office:</h1>
+          <h1 className="text-text_secondary font-semibold">Main Shop:</h1>
           <p className="text-gray-700">
-            House-B/108, Road-08, Mohakhali DOSH, Mohakhali, Dhaka-1206
+          Shop No 54, Level #4, Eastern Plus Shopping Complex, 145,<br /> Shantinagar Rd, Dhaka-1217
           </p>
-          <p className="text-gray-700">+880 1581868984</p>
+          <p className="text-gray-700">+880 1811-678030</p>
         </div>
         {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gap_primary  mt-mt_medium">
           <div className="p-pl_primary border rounded-lg text-left">
@@ -64,7 +64,7 @@ const Footer = () => {
         <div className="flex flex-col items-center lg:flex-row lg:justify-between mt-mt_medium gap-10">
           <div className="lg:flex-1 w-full">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14604.939466699361!2d90.40251434999999!3d23.7746494!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1715254253966!5m2!1sen!2sbd"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d913.0585749985815!2d90.41428550669539!3d23.739022862193085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b96cd31a96fd%3A0x4879bce4aced23af!2sTech%20HUB!5e0!3m2!1sen!2sbd!4v1719859886726!5m2!1sen!2sbd"
               height="250"
               allowfullscreen=""
               loading="lazy"
@@ -114,7 +114,7 @@ const Footer = () => {
                   Phone Number
                 </h1>
                 <h1 className="text-text_md mt-0 text-gray-700">
-                  +880 1581 868984
+                +880 1811-678030
                 </h1>
               </div>
             </div>

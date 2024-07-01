@@ -32,7 +32,8 @@ const LeftBar = () => {
   return (
     <div className="shadow-md bg-gray-100 h-screen overflow-y-auto text-black p-pl_16px font_sans ">
       <div className=" rounded  w-full">
-        <img className=" mx-auto  mb-[18px]rounded h-10 object-contain w-full" src="" alt="dfdf" />
+        {/* <img className=" mx-auto  mb-[18px]rounded h-10 object-contain w-full" src="" alt="LOGO" /> */}
+        <h1 className="text-2xl">LOGO</h1>
       </div>
       <div className="flex flex-col justify-between padding_left padding_right ">
         <ul className="w-full">

@@ -13,6 +13,7 @@ import { Pagination } from "swiper/modules";
 import { FaLuggageCart, FaStar } from "react-icons/fa";
 import { GiReturnArrow, GiTrophyCup } from "react-icons/gi";
 import { GrShieldSecurity } from "react-icons/gr";
+import { Link } from "react-router-dom";
 
 const Gallery = () => {
   return (
@@ -46,9 +47,9 @@ const Gallery = () => {
               <li>2. Digital Marketing Strategies</li>
               <li>3. Global Reach and Scalability</li>
             </ul>
-            <button className="btn btn-ghost font-medium bg-text_secondary text-white px-6 py-2 mt-4">
-              Contect Us
-            </button>
+            <Link to='/contact' className="btn btn-ghost font-medium bg-text_secondary text-white px-6 py-2 mt-4">
+              Contact Us
+            </Link>
           </div>
         </div>
       </section>

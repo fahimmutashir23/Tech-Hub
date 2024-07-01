@@ -141,7 +141,7 @@ const Home = () => {
       </section>
 
       {/* tranding section */}
-      <section className=" mb-10 pt-10">
+      <section className=" mb-10 pt-10 px-2">
         <div>
           <h1 className="text-3xl font-semibold items-start pb-8 text-text_secondary">
             Tranding Shop
@@ -379,7 +379,7 @@ const Home = () => {
       </section>
 
       {/* best seller section */}
-      <section className=" mb-10 pt-10 pb">
+      <section className=" mb-10 pt-10 pb px-2">
         <div>
           <h1 className="text-3xl font-semibold items-start pb-8 text-text_secondary">
             Best Seller
