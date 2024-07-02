@@ -10,12 +10,15 @@ import AddCategoryModal from "./AddCategoryModal";
 import UpdateCategoryModal from "./UpdateCategoryModal";
 import useGetCollectionLength from "../../../Hooks/useGetCollectionLength";
 import { Paginator } from "primereact/paginator";
+import Loader2 from "../../../Utils/Loader2";
 
 const CategoryList = () => {
   const [popOpen, setPopOpen] = useState(null);
   const axiosSecure = useAxiosSecure();
+  const [loader, setLoader] = useState(false)
   const [isOpen, setIsOpen] = useState(false);
-  const [collectionData, collectionLoading] = useGetCollectionLength();
+  const [data, setData] = useState(false);
+  const [collectionData, collectionLoading, collectionFetch] = useGetCollectionLength();
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(10);
   const [page, setPage] = useState(0)
@@ -36,7 +39,8 @@ const CategoryList = () => {
     },
   });
 
-  const handleUpdate = async () => {
+  const handleUpdate = async (data) => {
+    setData(data)
     setIsOpen(true);
   };
 
@@ -46,6 +50,7 @@ const CategoryList = () => {
       if (res.data) {
         toast.success("Category Deleted Successfully");
         refetch();
+        collectionFetch()
       }
     } catch (error) {
       toast.error(error.response.data.message);
@@ -68,6 +73,7 @@ const CategoryList = () => {
 
   return (
     <div className=" rounded-md py-2 px-3">
+      {loader && <Loader2 />}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-0  w-full">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-0 bg-gray-100 mb-2 w-full ">
           <div className="flex">
@@ -77,10 +83,10 @@ const CategoryList = () => {
               All( {collectionData.category} )
             </button>
           </div>
-          <AddCategoryModal fetchData={refetch} />
+          <AddCategoryModal collectionFetch={collectionFetch} setLoader={setLoader} fetchData={refetch} />
         </div>
       </div>
-      <div className="overflow-x-auto pb-32 ">
+      <div className="overflow-x-auto ">
         <table className="table border border-blue-900">
           {/* head */}
           <thead className="h-[40px]">
@@ -110,7 +116,7 @@ const CategoryList = () => {
                     >
                       <ul className="text-black text-left">
                         <li
-                          onClick={() => handleUpdate(data._id)}
+                          onClick={() => handleUpdate(data)}
                           className="w-full p-2 font_standard transition-all flex items-center list_hover gap-2"
                         >
                           <BiEdit />
@@ -126,11 +132,12 @@ const CategoryList = () => {
                     </div>
                   </button>
                 </td>
-                <UpdateCategoryModal id={data._id} fetchData={refetch} isOpen={isOpen} setIsOpen={setIsOpen} />
+                
               </tr>
             ))}
           </tbody>
         </table>
+        <UpdateCategoryModal data={data} fetchData={refetch} isOpen={isOpen} setIsOpen={setIsOpen} />
         <Paginator className="bg-gray-700 max-w-fit mx-auto mt-2 text-white" first={first} rows={rows} totalRecords={collectionData.category} onPageChange={onPageChange} />
       </div>
     </div>

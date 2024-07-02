@@ -3,13 +3,13 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { IoMdClose } from "react-icons/io";
 import { toast } from "react-toastify";
-import { useQuery } from "@tanstack/react-query";
+import { IoAddCircleOutline } from "react-icons/io5";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
-const UpdateCategoryModal = ({ fetchData, data, isOpen, setIsOpen }) => {
+const AddExpenseCategoryModal = ({ fetchData, setLoader, collectionFetch }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [animate, setAnimate] = useState(false);
   const axiosSecure = useAxiosSecure();
-
 
   const handleAnimate = () => {
     setAnimate(true);
@@ -20,27 +20,37 @@ const UpdateCategoryModal = ({ fetchData, data, isOpen, setIsOpen }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoader(true)
     const category = e.target.category.value;
-    const info = {
-       name: category
-    }
+    const info = { name: category };
 
     try {
-      const res = await axiosSecure.put(`/api/update-category/${data._id}`, info);
-      if (res.data.status_code === 200) {
+      const res = await axiosSecure.post("/api/save-expenseCategory", info);
+      if (res.data.success) {
         fetchData();
+        collectionFetch()
         toast.success(res.data.message);
-        e.target.reset()
+        e.target.reset();
+        setLoader(false)
       }
     } catch (error) {
-        toast.error(error.response.data.message)
+      setLoader(false)
+      toast.error(error.response.data.message);
     }
   };
 
   return (
     <>
       <div className="">
-      <Transition appear show={isOpen} as={Fragment}>
+        <button
+          type="button"
+          onClick={() => setIsOpen(true)}
+          className="text-text_lg bg-gray-700 text-white px-5 py-2 font-bold duration-500 flex items-center gap-2"
+        >
+          <IoAddCircleOutline className="text-2xl font-bold" />
+          <span className="mt-1">Add Category</span>
+        </button>
+        <Transition appear show={isOpen} as={Fragment}>
           <Dialog as="div" className={`relative z-50`} onClose={handleAnimate}>
             <Transition.Child
               as={Fragment}
@@ -73,7 +83,9 @@ const UpdateCategoryModal = ({ fetchData, data, isOpen, setIsOpen }) => {
                       as="h3"
                       className="border px-4 text-xl bg-gray-700 text-white flex items-center justify-between h-14"
                     >
-                      <h6 className="py-2 text-2xl font-semibold">Update Product</h6>
+                      <h6 className="py-2 text-2xl font-semibold">
+                        Create Expense Category
+                      </h6>
                       <button
                         onClick={() => setIsOpen(false)}
                         className="text_color close-button "
@@ -85,7 +97,7 @@ const UpdateCategoryModal = ({ fetchData, data, isOpen, setIsOpen }) => {
                       <div className="m-4">
                         <div className="">
                           <label className="font-semibold">
-                            Product Category
+                            Expense Category
                             <span className="text-red-400 ml-1">
                               (required)
                             </span>{" "}
@@ -93,7 +105,6 @@ const UpdateCategoryModal = ({ fetchData, data, isOpen, setIsOpen }) => {
                           <input
                             type="text"
                             name="category"
-                            defaultValue={data?.name}
                             className="bg-white h-12 focus:ring-0 px-4 focus:border w-full focus:outline-none border border-black"
                             placeholder="Type Here"
                             required
@@ -128,4 +139,4 @@ const UpdateCategoryModal = ({ fetchData, data, isOpen, setIsOpen }) => {
   );
 };
 
-export default UpdateCategoryModal;
+export default AddExpenseCategoryModal;

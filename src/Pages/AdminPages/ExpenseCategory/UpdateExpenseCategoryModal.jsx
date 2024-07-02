@@ -3,12 +3,12 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { IoMdClose } from "react-icons/io";
 import { toast } from "react-toastify";
-import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
-const UpdateCategoryModal = ({ fetchData, data, isOpen, setIsOpen }) => {
+const UpdateExpenseCategoryModal = ({ fetchData, data, isOpen, setIsOpen }) => {
   const [animate, setAnimate] = useState(false);
   const axiosSecure = useAxiosSecure();
+  
 
 
   const handleAnimate = () => {
@@ -26,8 +26,8 @@ const UpdateCategoryModal = ({ fetchData, data, isOpen, setIsOpen }) => {
     }
 
     try {
-      const res = await axiosSecure.put(`/api/update-category/${data._id}`, info);
-      if (res.data.status_code === 200) {
+      const res = await axiosSecure.put(`/api/update-expenseCategory/${data._id}`, info);
+      if (res.data.success) {
         fetchData();
         toast.success(res.data.message);
         e.target.reset()
@@ -128,4 +128,4 @@ const UpdateCategoryModal = ({ fetchData, data, isOpen, setIsOpen }) => {
   );
 };
 
-export default UpdateCategoryModal;
+export default UpdateExpenseCategoryModal;

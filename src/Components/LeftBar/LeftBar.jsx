@@ -2,7 +2,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { HiUserGroup } from "react-icons/hi2";
-import { MdContactPage } from "react-icons/md";
+import { MdContactPage, MdKeyboardArrowDown } from "react-icons/md";
 import { MdLibraryBooks } from "react-icons/md";
 import { FaImages, FaUserAlt } from "react-icons/fa";
 import { IoSettingsSharp } from "react-icons/io5";
@@ -14,6 +14,12 @@ const LeftBar = () => {
   const location = useLocation();
   const {setOpen} = useContext(BasicContext);
   const [isSmallScreen] = useSmallScreen();
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  const handleOpen = (id) => {
+    setOpenDropdown((prevIdx) => (prevIdx === id ? null : id));
+  };
+
 
 
   useEffect(() => {
@@ -43,7 +49,7 @@ const LeftBar = () => {
               </p>
             <ul className="overflow-hidden transition-all duration-500 ease-in-out font_sans">
               {
-              <li className={` px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${selected === '/admin' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected ' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-slate-100 '}`}
+              <li className={` px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${selected === '/admin' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected ' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-gray-300 '}`}
                 onClick={() => handleClick('/admin')}>
                 <Link to='/admin' className="flex items-center gap-gap_6px py-pt_primary">
                   <span className="bg-bg_selected text-white p-pl_primary rounded-rounded_primary text-text_md">
@@ -53,9 +59,10 @@ const LeftBar = () => {
                     Dashboard
                   </span>
                 </Link>
-              </li>}
+              </li>
+              }
               {
-              <li className={` px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${selected === '/admin/categoryList' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected ' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-slate-100 '}`}
+              <li className={` px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${selected === '/admin/categoryList' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected ' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-gray-300 '}`}
                 onClick={() => handleClick('/admin/categoryList')}>
                 <Link to='/admin/categoryList' className="flex items-center gap-gap_6px py-pt_primary">
                   <span className="bg-bg_selected text-white p-pl_primary rounded-rounded_primary text-text_md">
@@ -65,9 +72,10 @@ const LeftBar = () => {
                     Category List
                   </span>
                 </Link>
-              </li>}
+              </li>
+              }
               {
-              <li className={` px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200  ${selected === '/admin/productList' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-slate-100 '}`}
+              <li className={` px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200  ${selected === '/admin/productList' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-gray-300 '}`}
                 onClick={() => handleClick('/admin/productList')}>
 
                 <Link to='/admin/productList' className="flex items-center gap-gap_6px py-pt_primary">
@@ -80,7 +88,7 @@ const LeftBar = () => {
                 </Link>
               </li>}
               {
-              <li className={` px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200  ${selected === '/admin/bookingsList' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-slate-100 '}`}
+              <li className={` px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200  ${selected === '/admin/bookingsList' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-gray-300 '}`}
                 onClick={() => handleClick('/admin/bookingsList')}>
 
                 <Link to='/admin/bookingsList' className="flex items-center gap-gap_6px py-pt_primary">
@@ -93,7 +101,7 @@ const LeftBar = () => {
                 </Link>
               </li>}
               {
-              <li className={` px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${selected === '/admin/contact' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected ' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-slate-100 '}`}
+              <li className={` px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${selected === '/admin/contact' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected ' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-gray-300 '}`}
                 onClick={() => handleClick('/admin/contact')}>
                 <Link to='/admin/contact' className="flex items-center  gap-gap_6px py-pt_primary">
                   <span className="bg-bg_selected text-white p-pl_primary rounded-rounded_primary text-text_md">
@@ -103,21 +111,62 @@ const LeftBar = () => {
                     Contact
                   </span>
                 </Link>
-              </li>}
-              {<li className={`py-pt_primary px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${selected === '/admin/imageList' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected ' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-slate-100 '}`}
-                onClick={() => handleClick('/admin/imageList')}>
-                <Link to='/admin/imageList' className="flex items-center  gap-gap_6px">
+              </li>
+              }
+              {
+                <li className={`py-pt_primary px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200`}
+                onClick={() => handleClick('/admin/expenseCategory')}
+                >
+                <div
+                onClick={() => handleOpen(1)}
+                className="flex items-center  gap-gap_6px">
                   <span className="bg-bg_selected text-white p-pl_primary rounded-rounded_primary text-text_md">
                     <FaImages />
                   </span>
-                  <span className="text-text_md font_sans font-medium ">
-                    Expense
+                  <span className="text-text_md font_sans font-medium flex justify-between w-full">
+                    <p className={`${selected === '/admin/expenseCategory' ? 'text-black' : 'text-gray-600'}`}>Expense</p>
+                    <MdKeyboardArrowDown
+                  className={`${
+                    openDropdown === 1 ? "rotate-180 text-2xl" : "text-2xl "
+                  } transition-all duration-500`}
+                />
                   </span>
-                </Link>
-              </li>}
+                </div>
+
+                <ul className={`space-y-1 ${
+                  openDropdown === 1 ? "max-h-[400px]" : "max-h-0"
+                } overflow-hidden ml-m_md transition-all duration-500 ease-in-out`}>
+                  {
+                    <li className={` px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${selected === '/admin/expenseCategory' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected ' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-gray-300'}`}
+                      onClick={() => handleClick('/admin/expenseCategory')}>
+                      <Link to='/admin/expenseCategory' className="flex items-center  gap-gap_6px py-pt_primary">
+                      <span className="bg-bg_selected text-white p-1 rounded-rounded_primary text-text_md">
+                      </span>
+                      <span className="text-text_md font_sans font-medium ">
+                          Expense Category
+                      </span>
+                        </Link>
+                    </li>
+                    }
+                  {
+                    <li className={` px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${selected === '/admin/expenseList' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected ' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-gray-300 '}`}
+                      onClick={() => handleClick('/admin/expenseList')}>
+                      <Link to='/admin/expenseList' className="flex items-center  gap-gap_6px py-pt_primary">
+                      <span className="bg-bg_selected text-white p-1 rounded-rounded_primary text-text_md">
+                      </span>
+                      <span className="text-text_md font_sans font-medium ">
+                          Expense List
+                      </span>
+                        </Link>
+                    </li>
+                    }
+                </ul>
+              </li>
+              }
             </ul>
           </li>}
-          { <li className="group hover:cursor-pointer duration-200">
+          { 
+            <li className="group hover:cursor-pointer duration-200">
             <div
               className="flex items-center justify-between duration-200"
             >
@@ -127,7 +176,7 @@ const LeftBar = () => {
             </div>
             <ul className="overflow-hidden transition-all duration-500 ease-in-out">
               {
-              <li className={` px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${selected === '/admin/user' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected ' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-slate-100 '}`}
+              <li className={` px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${selected === '/admin/user' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected ' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-gray-300 '}`}
                 onClick={() => handleClick('/admin/user')}>
                 <Link to='/admin/user' className="flex items-center gap-gap_6px py-pt_primary">
                   <span className="bg-bg_selected text-white p-pl_primary rounded-rounded_primary text-text_md">
@@ -138,7 +187,7 @@ const LeftBar = () => {
                   </span>
                 </Link>
               </li>}
-              {<li className={` px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${selected === '/admin/roleList' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected ' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-slate-100 '}`}
+              {<li className={` px-pt_8px my-mt_4px hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${selected === '/admin/roleList' ? 'bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected ' : 'text-[#585c66] font-medium hover:text-[#585c66] hover:bg-gray-300 '}`}
                 onClick={() => handleClick('/admin/roleList')}>
                 <Link to='/admin/roleList' className="flex items-center  gap-gap_6px py-pt_primary">
                   <span className="bg-bg_selected text-white p-pl_primary rounded-rounded_primary text-text_md">
@@ -150,7 +199,8 @@ const LeftBar = () => {
                 </Link>
               </li>}
             </ul>
-          </li>}
+            </li>
+          }
         </ul>
       </div>
     </div>

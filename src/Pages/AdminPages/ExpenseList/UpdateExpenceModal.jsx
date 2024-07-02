@@ -2,14 +2,22 @@ import { useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { IoMdClose } from "react-icons/io";
-import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Loader2 from "../../../Utils/Loader2";
+import { toast } from "react-toastify";
 
-const UpdateCategoryModal = ({ fetchData, data, isOpen, setIsOpen }) => {
+const UpdateExpenseModal = ({ updatingData, isOpen, setIsOpen, refetch }) => {
   const [animate, setAnimate] = useState(false);
   const axiosSecure = useAxiosSecure();
 
+  const { data, isLoading } = useQuery({
+    queryKey: ["get-expense-cat"],
+    queryFn: async () => {
+      const res = await axiosSecure("/api/get-expenseCategory-list");
+      return res.data.result;
+    },
+  });
 
   const handleAnimate = () => {
     setAnimate(true);
@@ -20,27 +28,30 @@ const UpdateCategoryModal = ({ fetchData, data, isOpen, setIsOpen }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const category = e.target.category.value;
-    const info = {
-       name: category
-    }
+    const name = e.target.name.value
+    const amount = e.target.amount.value
+    const details = e.target.details.value
+    const category = e.target.category.value
+    const info = {name, amount, details, category}
 
     try {
-      const res = await axiosSecure.put(`/api/update-category/${data._id}`, info);
-      if (res.data.status_code === 200) {
-        fetchData();
-        toast.success(res.data.message);
-        e.target.reset()
-      }
+      const res = await axiosSecure.patch(`/api/update-single-expense/${updatingData._id}`, info)
+    if(res.data.success){
+      toast.success(res.data.message)
+      setIsOpen(false)
+      refetch()
+    }
     } catch (error) {
-        toast.error(error.response.data.message)
+      toast.error(error.response.data.message)
     }
   };
+
+  if (isLoading) return <Loader2 />;
 
   return (
     <>
       <div className="">
-      <Transition appear show={isOpen} as={Fragment}>
+        <Transition appear show={isOpen} as={Fragment}>
           <Dialog as="div" className={`relative z-50`} onClose={handleAnimate}>
             <Transition.Child
               as={Fragment}
@@ -73,36 +84,86 @@ const UpdateCategoryModal = ({ fetchData, data, isOpen, setIsOpen }) => {
                       as="h3"
                       className="border px-4 text-xl bg-gray-700 text-white flex items-center justify-between h-14"
                     >
-                      <h6 className="py-2 text-2xl font-semibold">Update Product</h6>
+                      <h6 className="py-2 text-2xl font-semibold">
+                        Update Expense
+                      </h6>
                       <button
                         onClick={() => setIsOpen(false)}
                         className="text_color close-button "
                       >
-                        <IoMdClose />
+                        <IoMdClose className="text-2xl" />
                       </button>
                     </Dialog.Title>
                     <form onSubmit={handleSubmit}>
-                      <div className="m-4">
+                      <div className="m-4 grid grid-cols-1 lg:grid-cols-2 gap-4">
                         <div className="">
                           <label className="font-semibold">
-                            Product Category
+                            Expense Name
                             <span className="text-red-400 ml-1">
                               (required)
                             </span>{" "}
                           </label>
                           <input
                             type="text"
-                            name="category"
-                            defaultValue={data?.name}
+                            name="name"
+                            defaultValue={updatingData?.name}
                             className="bg-white h-12 focus:ring-0 px-4 focus:border w-full focus:outline-none border border-black"
                             placeholder="Type Here"
                             required
                           />
                         </div>
+                        <div className="">
+                          <label className="font-semibold">
+                            Expense Amount
+                            <span className="text-red-400 ml-1">
+                              (required)
+                            </span>{" "}
+                          </label>
+                          <input
+                            type="number"
+                            name="amount"
+                            defaultValue={updatingData?.amount}
+                            className="bg-white h-12 focus:ring-0 px-4 focus:border w-full focus:outline-none border border-black"
+                            placeholder="Type Here"
+                            required
+                          />
+                        </div>
+                        <div>
+                          <label className="font-semibold">
+                            Expense Category
+                            <span className="text-red-400 ml-1">
+                              (required)
+                            </span>{" "}
+                          </label>
+                          <select
+                            name="category"
+                            defaultValue={updatingData?.category}
+                            className="bg-white h-12 focus:ring-0 px-4 focus:border w-full focus:outline-none border border-black"
+                            required
+                          >
+                            {data.map((item) => (
+                              <option key={item._id}>{item.name}</option>
+                            ))}
+                          </select>
+                        </div>
+                        <div className="">
+                          <label className="font-semibold">
+                            Details
+                            <span className="text-red-400 ml-1">
+                              (required)
+                            </span>{" "}
+                          </label>
+                          <textarea
+                            name="details"
+                            defaultValue={updatingData?.details}
+                            rows="2"
+                            className="bg-white focus:ring-0 px-4 focus:border w-full focus:outline-none border border-black"
+                            required
+                          ></textarea>
+                        </div>
                       </div>
                       <div className="border text-xl bg-gray-700 flex items-center justify-between">
                         <button
-                          onClick={() => setIsOpen(false)}
                           type="submit"
                           className="button_primary"
                         >
@@ -128,4 +189,4 @@ const UpdateCategoryModal = ({ fetchData, data, isOpen, setIsOpen }) => {
   );
 };
 
-export default UpdateCategoryModal;
+export default UpdateExpenseModal;

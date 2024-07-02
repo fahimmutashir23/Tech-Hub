@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { IoAddCircleOutline } from "react-icons/io5";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
-const AddCategoryModal = ({ fetchData }) => {
+const AddCategoryModal = ({ fetchData, collectionFetch, setLoader }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [animate, setAnimate] = useState(false);
   const axiosSecure = useAxiosSecure();
@@ -20,6 +20,7 @@ const AddCategoryModal = ({ fetchData }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoader(true)
     const category = e.target.category.value;
     const info = { name: category };
 
@@ -27,11 +28,14 @@ const AddCategoryModal = ({ fetchData }) => {
       const res = await axiosSecure.post("/api/create-category", info);
       if (res.data.status_code === 200) {
         fetchData();
+        collectionFetch()
         toast.success(res.data.message);
         e.target.reset();
+        setLoader(false)
       }
     } catch (error) {
       toast.error(error.response.data.message);
+      setLoader(false)
     }
   };
 

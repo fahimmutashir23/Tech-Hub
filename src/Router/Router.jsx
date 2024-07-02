@@ -21,6 +21,10 @@ import Invoice from "../Pages/AdminPages/Invoice/Invoice";
 import CheckNotLogin from "../Security/CheckNotLogin";
 import Profile from "../Pages/AdminPages/Profile/Profile";
 import Contact from "../Pages/AdminPages/Contact/Contact";
+import ExpenseCategoryList from "../Pages/AdminPages/ExpenseCategory/ExpenseCategoryList";
+import ExpenseList from "../Pages/AdminPages/ExpenseList/ExpenseList";
+import ExpenseCreate from "../Pages/AdminPages/ExpenseList/ExpenseCreate";
+import ExpenseView from "../Pages/AdminPages/ExpenseList/ExpenseView";
 
 
 const Router = createBrowserRouter([
@@ -98,6 +102,22 @@ const Router = createBrowserRouter([
             {
                 path: '/admin/contact',
                 element: <Contact />
+            },
+            {
+                path: '/admin/expenseCategory',
+                element: <ExpenseCategoryList />
+            },
+            {
+                path: '/admin/expenseList',
+                element: <ExpenseList />
+            },
+            {
+                path: '/admin/expenseCreate',
+                element: <ExpenseCreate />
+            },
+            {
+                path: '/admin/expenseView',
+                element: <ExpenseView />
             },
         ]
     },
