@@ -19,7 +19,8 @@ import OrderPage from "../Pages/OrderPage/OrderPage";
 import ErrorPage from "../Utils/ErrorPage";
 import Invoice from "../Pages/AdminPages/Invoice/Invoice";
 import CheckNotLogin from "../Security/CheckNotLogin";
-import Profile from "../Pages/Profile/Profile";
+import Profile from "../Pages/AdminPages/Profile/Profile";
+import Contact from "../Pages/AdminPages/Contact/Contact";
 
 
 const Router = createBrowserRouter([
@@ -93,6 +94,10 @@ const Router = createBrowserRouter([
             {
                 path: '/admin/profile',
                 element: <Profile />
+            },
+            {
+                path: '/admin/contact',
+                element: <Contact />
             },
         ]
     },

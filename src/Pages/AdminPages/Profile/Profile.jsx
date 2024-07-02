@@ -1,9 +1,9 @@
 import { useState } from "react";
 import UpdateProfile from "./UpdateProfile";
-import { url } from "../../../connection";
-import useUser from "../../Security/useUser";
-import Loader from "../../Utils/Loader";
-import Loader2 from "../../Utils/Loader2";
+import { url } from "../../../../connection";
+import useUser from "../../../Security/useUser";
+import Loader from "../../../Utils/Loader";
+import Loader2 from "../../../Utils/Loader2";
 import { FaUserCircle } from "react-icons/fa";
 
 const Profile = () => {

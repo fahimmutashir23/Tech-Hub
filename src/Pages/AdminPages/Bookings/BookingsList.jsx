@@ -13,7 +13,6 @@ import { IoSearchSharp } from "react-icons/io5";
 const BookingsList = () => {
   const [popOpen, setPopOpen] = useState(null);
   const axiosSecure = useAxiosSecure();
-  const [searchValue, setSearchValue] = useState("");
   const [phone, setPhone] = useState();
   const [collectionData, collectionLoading] = useGetCollectionLength();
   const [first, setFirst] = useState(0);
@@ -99,8 +98,8 @@ const BookingsList = () => {
             </button>
           </div>
           <div className="w-full flex-1 flex items-stretch">
-            <input type="search" onChange={e => setSearchValue(e.target.value)} className="px-2 py-2 w-full border-2 border-gray-700 focus:outline-none" />
-            <button onClick={() => setPhone(searchValue)} className="px-4 bg-gray-700 text-white"><IoSearchSharp className="text-3xl" /></button>
+            <input type="search" onChange={e => setPhone(e.target.value)} className="px-2 py-2 w-full border-2 border-gray-700 focus:outline-none" />
+            <button onClick={() => setPhone(phone)} className="px-4 bg-gray-700 text-white"><IoSearchSharp className="text-3xl" /></button>
           </div>
         </div>
       </div>
