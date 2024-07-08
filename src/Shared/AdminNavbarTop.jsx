@@ -105,7 +105,7 @@ const AdminNavbarTop = () => {
               Logout
             </button> : 
             <Link
-            to='/login'
+            to='/admin/login'
               className="block px-4 py-2 text-black hover:bg-bg_selected hover:text-white"
             >
               Login

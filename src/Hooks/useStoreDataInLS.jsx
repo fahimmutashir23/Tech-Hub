@@ -19,7 +19,7 @@ const useStoreDataInLS = () => {
     return null;
   };
 
-  const handleLoad = (key) => {
+  const getToLocalStorage = (key) => {
     const loadedData = getFromLocalStorage(key);
     if (loadedData) {
       return loadedData
@@ -29,7 +29,7 @@ const useStoreDataInLS = () => {
   };
 
 
-    return [handleLoad, saveToLocalStorage]
+    return [getToLocalStorage, saveToLocalStorage]
 };
 
 export default useStoreDataInLS;

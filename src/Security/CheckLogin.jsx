@@ -4,9 +4,13 @@ import { useEffect, useState } from "react";
 import {  useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { url } from "../../connection";
+import useUser from "./useUser";
+import Loader2 from "../Utils/Loader2";
 
 const CheckLogin = ({ children }) => {
   const [go, setGo] = useState(false);
+  const [userData, isLoading] = useUser();
+  const [loader, setLoader] = useState(false)
   const navigate = useNavigate()
   const token = localStorage.getItem("token");
   const baseUrl = url
@@ -15,30 +19,36 @@ const CheckLogin = ({ children }) => {
   useEffect(() => {
     if (!token) {
       return (
-        toast.error("You are not login") && (
+        toast.error("You are not login 1") && (
           navigate('/admin/login')
         )
       );
     } else {
-      axios(`${baseUrl}/api/get-check-login`, {
+      axios(`${baseUrl}/api/validate-token`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
-        if (res.data.status) {
+        if(isLoading) return setLoader(true)
+        if (res.data.userId === userData._id) {
           setGo(true);
-        } else{
-          return toast.error("You are not login") && (
+          setLoader(false)
+        } else {
+          return toast.error("You are not login 2") && (
             navigate('/admin/login')
           )
         }
       })
       .catch(() => {
-        toast.error("You are not login") && navigate('/admin/login')
+        return toast.error("You are not login 3") && navigate('/admin/login')
       });
     }
-  }, [token]);
+  }, [token, isLoading]);
+
+  if(loader){
+    return <Loader2 />
+  }
 
   return go && children;
 };

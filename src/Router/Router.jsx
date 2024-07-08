@@ -25,6 +25,12 @@ import ExpenseCategoryList from "../Pages/AdminPages/ExpenseCategory/ExpenseCate
 import ExpenseList from "../Pages/AdminPages/ExpenseList/ExpenseList";
 import ExpenseCreate from "../Pages/AdminPages/ExpenseList/ExpenseCreate";
 import ExpenseView from "../Pages/AdminPages/ExpenseList/ExpenseView";
+import UserList from "../Pages/AdminPages/UserList/UserList";
+import Role from "../Pages/AdminPages/RoleList/Role";
+import RoleList2 from "../Pages/AdminPages/RoleList/RoleList2";
+import UpdateRole from "../Pages/AdminPages/RoleList/UpdateRole";
+import AccessComponents from "./AccessComponents";
+import CompanyProfile from "../Pages/AdminPages/CompanyProfile/CompanyProfile";
 
 
 const Router = createBrowserRouter([
@@ -118,6 +124,26 @@ const Router = createBrowserRouter([
             {
                 path: '/admin/expenseView',
                 element: <ExpenseView />
+            },
+            {
+                path: '/admin/userList',
+                element: <AccessComponents accessName='user-list'><UserList /></AccessComponents>
+            },
+            {
+                path: '/admin/roleList',
+                element: <AccessComponents accessName='role-list'><Role /></AccessComponents>
+            },
+            {
+                path: '/admin/createRole',
+                element: <AccessComponents accessName='role-create'><RoleList2 /></AccessComponents>
+            },
+            {
+                path: '/admin/editRole',
+                element: <AccessComponents accessName='role-edit'><UpdateRole /></AccessComponents>
+            },
+            {
+                path: '/admin/company',
+                element: <AccessComponents accessName='settings-list'><CompanyProfile /></AccessComponents>
             },
         ]
     },

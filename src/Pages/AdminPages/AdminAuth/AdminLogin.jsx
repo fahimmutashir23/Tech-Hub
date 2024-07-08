@@ -2,12 +2,50 @@ import { Link, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useUser from "../../../Security/useUser";
 import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import { Html5QrcodeScanner } from "html5-qrcode";
 
 
 const AdminLogin = () => {
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
     const [, , refetch] = useUser();
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+      if(data){
+        axiosPublic(`/api/auth?email=${data.email}&password=${data.password}`)
+      .then(res => {
+        if (res.data) {
+          toast.success(res.data.message);
+          localStorage.setItem("token", res.data.token);
+          navigate("/admin");
+          refetch();
+        }
+      })
+      }
+    }, [data])
+
+  const handleScan = () => {
+    let scanner;
+
+
+    function onScanSuccess(decodedText, decodedResult) {
+      const decodeData = (encodedData) => JSON.parse(atob(encodedData));
+      const decodedData = decodeData(decodedText)
+      setData(decodedData);
+      scanner.clear()
+    }
+
+    const config = {
+      fps: 10,
+      qrbox: { width: 200, height: 200 },
+      rememberLastUsedCamera: true,
+    };
+
+    scanner = new Html5QrcodeScanner("reader", config, true);
+    scanner.render(onScanSuccess);
+  }
   
     const handleLogin = async (e) => {
       e.preventDefault();
@@ -68,14 +106,22 @@ const AdminLogin = () => {
                   required
                 />
               </div>
-              <div className="form-control mt-6">
+              <div className="w-full mt-6 flex flex-col lg:flex-row gap-2 items-center">
                 <button
                   type="submit"
-                  className="btn btn-primary text-xl rounded-sm"
+                  className="button_primary w-full"
                 >
                   Login
                 </button>
+                or
+                <div
+                onClick={handleScan}
+                  className="button_primary w-full text-center cursor-pointer"
+                >
+                  Scan QR Code
+                </div>
               </div>
+                <div id="reader"></div>
               <p>If you are not an account please <Link className="text-blue-600" to='/admin/registration'>Register</Link></p>
             </form>
           </div>

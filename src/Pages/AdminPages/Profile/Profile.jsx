@@ -5,11 +5,21 @@ import useUser from "../../../Security/useUser";
 import Loader from "../../../Utils/Loader";
 import Loader2 from "../../../Utils/Loader2";
 import { FaUserCircle } from "react-icons/fa";
+import QRCode from "qrcode";
+
+const opts = {
+  type: "image/pdf",
+  quality: 1,
+  margin: 1,
+};
 
 const Profile = () => {
   const [userData, isLoading, refetch] = useUser();
   const [isOpen, setIsOpen] = useState(false);
   const [loader, setLoader] = useState(false);
+  const [qrCode, setQrCode] = useState(null);
+  const [showPassField, setShowPassField] = useState(false)
+  const [inputPass, setInputPass] = useState();
   const imgUrl = `${url}/upload/profile/images/`;
 
   const formatDate = (dateString) => {
@@ -17,14 +27,28 @@ const Profile = () => {
     return new Date(dateString).toLocaleDateString("en-GB", options);
   };
 
+  const encodeData = (data) => btoa(JSON.stringify(data));
+
+  const handleGenerate = () => {
+    const inputCode = { password: inputPass, email: userData.email};
+    const encodedData = encodeData(inputCode);
+
+    QRCode.toDataURL(encodedData, opts, (err, url) => {
+      if (err) return console.log(err);
+      setQrCode({ code: encodedData, url });
+      setShowPassField(false)
+    });
+  };
+
+
   if (isLoading) {
     return <Loader />;
   }
 
   return (
-    <div className="h-[calc(100vh-70px)] flex items-center">
+    <div className="my-4 flex items-center">
       {loader && <Loader2 />}
-      <div className="bg-_white border-2 border-bg_lightSlate rounded-md p-[20px] max-w-md w-full mx-auto">
+      <div className="bg-_white border-2 border-bg_lightSlate rounded-md p-[20px] max-w-lg w-full mx-auto">
         <div>
           <div className="h-24 w-24 overflow-hidden rounded-full mx-auto">
             {userData.image ? (
@@ -82,6 +106,29 @@ const Profile = () => {
             >
               Edit
             </button>
+            {!showPassField && <button onClick={() => setShowPassField(true)} className="button_secondary w-full mt-2">
+              Generate QR Code
+            </button>}
+            {showPassField && <p className="text-xs mt-1">if you input wrong password the qr code will not work.</p>}
+            {showPassField && <div className="flex">
+              <input
+                type="password"
+                name="name"
+                className="bg-white h-12 focus:ring-0 px-4 focus:border w-full focus:outline-none border border-black"
+                onChange={(e) => setInputPass(e.target.value)}
+                placeholder="Input your password"
+                required
+              />
+              <button onClick={handleGenerate} className="button_secondary">
+                Generate
+              </button>
+            </div>}
+            {qrCode && (
+              <div className="mt-2 flex flex-col w-32 mx-auto">
+                <img src={qrCode.url} alt="" />
+                <a href={qrCode.url} download className="bg-blue-500 text-white font-semibold px-3 mt-1 text-center w-full">Download</a>
+              </div>
+            )}
           </div>
         </div>
         <UpdateProfile

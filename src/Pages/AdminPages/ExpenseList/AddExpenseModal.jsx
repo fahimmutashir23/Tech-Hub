@@ -6,11 +6,13 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Loader2 from "../../../Utils/Loader2";
+import { useNavigate } from "react-router-dom";
 
 const AddExpenseModal = ({ setProducts, products, setTotalAmount, totalAmount }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [animate, setAnimate] = useState(false);
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate()
 
   const { data, isLoading } = useQuery({
     queryKey: ["get-expense-cat"],
@@ -37,6 +39,7 @@ const AddExpenseModal = ({ setProducts, products, setTotalAmount, totalAmount })
     setProducts([...products, info])
     setTotalAmount(parseInt(totalAmount) + parseInt(amount))
     setIsOpen(false)
+    navigate('/admin/expenseList')
   };
 
   if (isLoading) return <Loader2 />;

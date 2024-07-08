@@ -7,7 +7,7 @@ const useUser = () => {
  
   
     const {data:userData = null, isLoading, refetch} = useQuery({
-      queryKey : ['profile'],
+      queryKey : ['profile_data'],
       queryFn : async () => {
         const res = await axiosSecure("/api/profile");
         return res.data.result

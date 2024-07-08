@@ -76,7 +76,7 @@ const ExpenseList = () => {
             <button
               className={`text-text_lg bg-gray-700 text-white px-5 py-2 font-bold duration-500`}
             >
-              All( {collectionData.expense} )
+              All( {collectionData?.expense?.expense} )
             </button>
           </div>
           <div className="flex-1 flex items-stretch">
@@ -84,6 +84,7 @@ const ExpenseList = () => {
             <button onClick={() => setDate(date)} className="px-4 bg-gray-700 text-white"><IoSearchSharp className="text-3xl" /></button>
           </div>
           <Link
+          to='/admin/expenseCreate'
           className="text-text_lg bg-gray-700 text-white px-5 py-2 font-bold duration-500 flex items-center gap-2"
         >
           <IoAddCircleOutline className="text-2xl font-bold" />
@@ -151,12 +152,11 @@ const ExpenseList = () => {
                     </div>
                   </button>
                 </td>
-                
               </tr>
             ))}
           </tbody>
         </table>
-        {collectionData.expense >= rows && <Paginator className="bg-gray-700 max-w-fit mx-auto mt-2 text-white" first={first} rows={rows} totalRecords={collectionData.expenseCategory} onPageChange={onPageChange} />}
+        {collectionData?.expense?.expense >= rows && <Paginator className="bg-gray-700 max-w-fit mx-auto mt-2 text-white" first={first} rows={rows} totalRecords={collectionData?.expense?.expense} onPageChange={onPageChange} />}
       </div>
     </div>
   );
