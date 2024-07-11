@@ -31,6 +31,8 @@ import RoleList2 from "../Pages/AdminPages/RoleList/RoleList2";
 import UpdateRole from "../Pages/AdminPages/RoleList/UpdateRole";
 import AccessComponents from "./AccessComponents";
 import CompanyProfile from "../Pages/AdminPages/CompanyProfile/CompanyProfile";
+import StockCategoryList from "../Pages/AdminPages/Stock/StockCategory/StockCategoryList";
+import CreateStock from "../Pages/AdminPages/Stock/StockList/CreateStock";
 
 
 const Router = createBrowserRouter([
@@ -109,6 +111,7 @@ const Router = createBrowserRouter([
                 path: '/admin/contact',
                 element: <Contact />
             },
+            // Expense
             {
                 path: '/admin/expenseCategory',
                 element: <ExpenseCategoryList />
@@ -125,6 +128,17 @@ const Router = createBrowserRouter([
                 path: '/admin/expenseView',
                 element: <ExpenseView />
             },
+            {
+                path: '/admin/purchaseCategory',
+                element: <StockCategoryList />
+            },
+
+            // Stock
+            {
+                path: '/admin/purchaseList',
+                element: <CreateStock />
+            },
+            // Adminestrative
             {
                 path: '/admin/userList',
                 element: <AccessComponents accessName='user-list'><UserList /></AccessComponents>

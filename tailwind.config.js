@@ -1,10 +1,22 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: "class",
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    './pages/**/*.{js,jsx}',
+  './components/**/*.{js,jsx}',
+  './app/**/*.{js,jsx}',
+  './src/**/*.{js,jsx}',
   ],
   theme: {
+      // container: {
+      //     center: true,
+      //     padding: "2rem",
+      //     screens: {
+      //       "2xl": "1400px",
+      //     },
+      //   },
     extend: {
       colors: {
         bg_primary : 'white',
@@ -30,20 +42,11 @@ export default {
         dark: '#041E41',
       },
       margin: {
-        ml_primary : '6px',
-        mr_primary : '6px',
-        mb_primary : '6px',
-        mt_medium : '12px',
-        mt_large : '20px',
-        ml_secondary : '40px',
-        mr_secondary : '40px',
-        mt_secondary : '40px',
-        mb_secondary : '40px',
-        mt_4px:'4px',
-        mt_primary: '6px',
-        mt_8px: '8px',
-        mt_16px: '16px',
-        mt_24px: '24px',
+        m_primary : '6px',
+        m_small: '10px',
+        m_base: '16px',
+        m_secondary : '20px',
+        m_large: '28px',
       },
       gap: {
         gap_primary : '12px',
@@ -60,41 +63,32 @@ export default {
         text_xxxl : '50px',
       },
       padding: {
-        pl_primary : '6px',
-        pr_primary : '6px',
-        pt_primary : '6px',
-        pb_primary : '6px',
-        pl_secondary : '20px',
-        pr_secondary : '20px',
-        pt_secondary : '20px',
-        pb_secondary : '20px',
-        pl_3px: '3px',
-        pr_3px: '3px',
-        pt_3px: '3px',
-        pb_3px: '3px',
-        p_4px: '4px',
-        pt_8px: '8px',
-        pl_10px: '10px',
-        pr_10px: '10px',
-        pt_10px: '10px',
-        pb_10px: '10px',
-        p_12px: '12px',
-        pl_16px: '16px',
-        pr_16px: '16px',
-        pt_16px: '16px',
-        pb_16px: '16px',
-        pl_primary2: '18px',
-        pr_primary2: '18px',
-        pt_primary2: '18px',
-        pb_primary2: '18px',
-        p_28px: '28px',
+        p_primary : '8px',
+        p_secondary: '10px',
+        p_base: '16px',
+        p_medium : '20px',
+        p_large: '28px',
       },
       borderRadius : {
         rounded_primary: '6px',
         rounded_secondary: '10px',
-      }
+      },
+      keyframes: {
+          "accordion-down": {
+            from: { height: "0" },
+            to: { height: "var(--radix-accordion-content-height)" },
+          },
+          "accordion-up": {
+            from: { height: "var(--radix-accordion-content-height)" },
+            to: { height: "0" },
+          },
+        },
+        animation: {
+          "accordion-down": "accordion-down 0.2s ease-out",
+          "accordion-up": "accordion-up 0.2s ease-out",
+        }
     },
   },
-  plugins: [require('daisyui'),],
+  plugins: [require('daisyui'), require("tailwindcss-animate")]
 }
 

@@ -63,7 +63,7 @@ const AdminNavbarTop = () => {
   }, [isSmallScreen, setOpen])
 
   return (
-    <div className="bg-white py-pt_primary w-full shadow-md border-b-1 ">
+    <div className="bg-white py-2 w-full shadow-md border-b-1 ">
       <ul className="flex gap-gap_primary justify-between px-pt_secondary ">
         <div className="flex items-center gap-gap_primary text-text_sm font-semibold  ">
           <MdMenu

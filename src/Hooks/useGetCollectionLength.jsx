@@ -8,7 +8,6 @@ const useGetCollectionLength = () => {
 
 
   const collectionFetch = async () => {
-    setCollectionLoading(true)
     const info = {
       date: null,
       from: null,
@@ -19,7 +18,6 @@ const useGetCollectionLength = () => {
     const res = await axiosSecure.post("/api/get-all-collection-length", info);
     if(res.data.success){
       setCollectionData(res.data.result)
-      setCollectionLoading(false)
     }
   };
 

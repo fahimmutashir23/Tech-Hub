@@ -28,8 +28,8 @@ const DashboardLayout = () => {
               <div className="absolute top-0 left-0 w-full inset-0 bg-black opacity-50 z-20"></div>
             )}
             <AdminNavbarTop />
-            <div className="overflow-y-auto h-[calc(100vh-52px)]">
-              <div className="min-h-[calc(100vh-120px)]">
+            <div className="overflow-y-auto h-[calc(100vh-56px)]">
+              <div className="min-h-[calc(100vh-136px)]">
               <Outlet />
               </div>
               <Copyright />

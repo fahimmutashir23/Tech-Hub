@@ -6,12 +6,13 @@ import { url } from "../../../../connection";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../../../Utils/Loader";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 const CompanyProfile = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [loader, setLoader] = useState(false);
   const imgUrl = `${url}/upload/logo/`
-  const axiosSecure = useAxiosSecure();
+  const axiosSecure = useAxiosPublic();
 
   const {data, isLoading, refetch} = useQuery({
     queryKey: ["get-company-profile"],
