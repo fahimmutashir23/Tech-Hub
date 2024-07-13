@@ -137,7 +137,7 @@ const SalesList = () => {
                     >
                       <ul className="text-black text-left">
                         <Link
-                          to='/admin/expenseView'
+                          to='/admin/invoice'
                           state={data._id}
                           className="w-full p-2 font_standard transition-all flex items-center list_hover gap-2"
                         >
