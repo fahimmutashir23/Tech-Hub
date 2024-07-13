@@ -64,7 +64,7 @@ const AdminNavbarTop = () => {
 
   return (
     <div className="bg-white py-2 w-full shadow-md border-b-1 ">
-      <ul className="flex gap-gap_primary justify-between px-pt_secondary ">
+      <ul className="flex gap-gap_primary justify-between px-p_secondary ">
         <div className="flex items-center gap-gap_primary text-text_sm font-semibold  ">
           <MdMenu
             onClick={() => setOpen(!open)}

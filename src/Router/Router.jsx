@@ -33,6 +33,8 @@ import AccessComponents from "./AccessComponents";
 import CompanyProfile from "../Pages/AdminPages/CompanyProfile/CompanyProfile";
 import StockCategoryList from "../Pages/AdminPages/Stock/StockCategory/StockCategoryList";
 import CreateStock from "../Pages/AdminPages/Stock/StockList/CreateStock";
+import SalesList from "@/Pages/AdminPages/Sales/SalesList/SalesList";
+import NewSales from "@/Pages/AdminPages/Sales/NewSales/NewSales";
 
 
 const Router = createBrowserRouter([
@@ -137,6 +139,15 @@ const Router = createBrowserRouter([
             {
                 path: '/admin/purchaseList',
                 element: <CreateStock />
+            },
+            // Sales
+            {
+                path: '/admin/salesList',
+                element: <SalesList />
+            },
+            {
+                path: '/admin/newSale',
+                element: <NewSales />
             },
             // Adminestrative
             {

@@ -1,5 +1,5 @@
-import Loader from "../../../Utils/Loader";
 import useGetCollectionLength from "../../../Hooks/useGetCollectionLength";
+import Loader2 from "@/Utils/Loader2";
 const colors = [
   { id: 0, name: "Tomato", hex: "bg-[#FF1347]" },
   { id: 1, name: "LightSkyBlue", hex: "bg-[#00DD]" },
@@ -24,10 +24,10 @@ const colors = [
 ];
 
 const AdminHome = () => {
-  const [collectionData, collectionLoading] = useGetCollectionLength();
+  const [collectionData] = useGetCollectionLength();
 
-  if (collectionLoading) {
-    return <Loader />;
+  if (!collectionData.product) {
+    return <Loader2 />;
   }
 
   const statCard = [
@@ -36,6 +36,7 @@ const AdminHome = () => {
     { text: "Total Sale", value: collectionData.sale || 0 },
     { text: "Total Revenue", value: collectionData.revenue || 0 },
     { text: "Total Expense", value: collectionData.expense?.totalExpense || 0 },
+    { text: "Total Stock", value: collectionData?.stock?.stock || 0, amount: collectionData?.stock?.stockAmount[0].totalSum },
   ];
 
   return (
@@ -49,6 +50,8 @@ const AdminHome = () => {
           >
             <h1 className="text-xl text-center font-semibold">{item.text}</h1>
             <h1 className="text-4xl text-center font-semibold">{item.value}</h1>
+            {item.amount && <h1 className="text-xl text-center font-semibold">Total Stock Amount</h1>}
+            <h1 className="text-4xl text-center font-semibold">{item?.amount}</h1>
           </div>
         );
       })}

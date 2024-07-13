@@ -304,6 +304,78 @@ const LeftBar = () => {
                     </ul>
                   </li>
                 }
+                {
+                  <li
+                    className={`py-p_primary px-p_primary my-1 hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200`}
+                  >
+                    <div
+                      onClick={() => handleOpen(5)}
+                      className="flex items-center  gap-2"
+                    >
+                      <span className="bg-bg_selected text-white p-p_primary rounded-rounded_primary text-md">
+                        <FaImages />
+                      </span>
+                      <span className="text-md font_sans font-medium flex justify-between w-full">
+                        <p className={`text-gray-600`}>Sales</p>
+                        <MdKeyboardArrowDown
+                          className={`${
+                            openDropdown === 5
+                              ? "rotate-180 text-2xl"
+                              : "text-2xl "
+                          } transition-all duration-500`}
+                        />
+                      </span>
+                    </div>
+
+                    <ul
+                      className={`space-y-1 ${
+                        openDropdown === 5 ? "max-h-[400px]" : "max-h-0"
+                      } overflow-hidden ml-m_md transition-all duration-500 ease-in-out`}
+                    >
+                      {
+                        <li
+                          className={` px-p_primary my-1 hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${
+                            selected === "/admin/salesList"
+                              ? "bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected "
+                              : "text-[#585c66] font-medium hover:text-[#585c66] hover:bg-gray-300"
+                          }`}
+                          onClick={() => handleClick("/admin/salesList")}
+                        >
+                          <Link
+                            to="/admin/salesList"
+                            className="flex items-center  gap-2 py-p_primary"
+                          >
+                            <span className="bg-bg_selected text-white p-1 rounded-rounded_primary text-md"></span>
+                            <span className="text-md font_sans font-medium ">
+                              Sales List
+                            </span>
+                          </Link>
+                        </li>
+                      }
+                      {
+                        <li
+                          className={` px-p_primary my-1 hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${
+                            selected === "/admin/newSale"
+                              ? "bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected "
+                              : "text-[#585c66] font-medium hover:text-[#585c66] hover:bg-gray-300 "
+                          }`}
+                          onClick={() => handleClick("/admin/newSale")}
+                        >
+                          <Link
+                            to="/admin/newSale"
+                            className="flex items-center  gap-2 py-p_primary"
+                          >
+                            <span className="bg-bg_selected text-white p-1 rounded-rounded_primary text-md"></span>
+                            <span className="text-md font_sans font-medium ">
+                              New Sales
+                            </span>
+                          </Link>
+                        </li>
+                      }
+                    </ul>
+                  </li>
+                }
+                
               </ul>
             </li>
           }
