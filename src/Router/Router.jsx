@@ -35,6 +35,7 @@ import StockCategoryList from "../Pages/AdminPages/Stock/StockCategory/StockCate
 import CreateStock from "../Pages/AdminPages/Stock/StockList/CreateStock";
 import SalesList from "@/Pages/AdminPages/Sales/SalesList/SalesList";
 import NewSales from "@/Pages/AdminPages/Sales/NewSales/NewSales";
+import SaleInvoice from "@/Pages/AdminPages/Invoice/SaleInvoice";
 
 
 const Router = createBrowserRouter([
@@ -148,6 +149,10 @@ const Router = createBrowserRouter([
             {
                 path: '/admin/newSale',
                 element: <NewSales />
+            },
+            {
+                path: '/admin/invoice',
+                element: <SaleInvoice />
             },
             // Adminestrative
             {

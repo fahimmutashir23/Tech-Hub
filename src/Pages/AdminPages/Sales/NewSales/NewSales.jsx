@@ -12,14 +12,18 @@ import {
   SelectValue,
 } from "/components/ui/select";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 const CreateSales = () => {
   const date = moment().format("DD-MM-YYYY");
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
   //   form start
   const [discount, setDiscount] = useState(0);
   const [pQuantity, setQuantity] = useState([]);
   const [clientName, setClientName] = useState(null);
+  const [clientPhone, setClientPhone] = useState(null);
+  const [clientAdd, setClientAdd] = useState(null);
   //   form end
   const [loader, setLoader] = useState(false);
   const [isRequired, setIsRequired] = useState(false);
@@ -80,9 +84,18 @@ const CreateSales = () => {
 
   const handleSave = async (e) => {
     e.preventDefault();
-    if (!clientName) return setIsRequired(true);
-    setIsRequired(true);
-    setLoader(false);
+    if (!clientName){
+        return setIsRequired({clientName: true});
+    } else if(!clientPhone){
+        return setIsRequired({clientPhone: true});
+    } else if(clientPhone.length !== 11) {
+        console.log(clientPhone.length);
+        return toast.error("phone number must be 11 digit")
+    } else if (pQuantity.reduce((a, b) => a + b.total ,0) - discount <= 0){
+        return toast.error('No product add')
+    }
+    setIsRequired(false);
+    setLoader(true);
 
     const notes = e.target.notes.value;
     const makerName = e.target.makerName.value;
@@ -91,15 +104,19 @@ const CreateSales = () => {
       products: finalProduct,
       date,
       clientName,
-      details: notes,
+      clientPhone,
+      clientAdd,
       makerName,
-      totalAmount: pQuantity.reduce((a, b) => a + b.total ,0) - discount
+      totalAmount: pQuantity.reduce((a, b) => a + b.total ,0) - discount,
+      discountAmount: discount,
+      details: notes
     };
 
     try {
       const res = await axiosSecure.post("/api/create-sale", info);
       if (res.data.success) {
         toast.success(res.data.message);
+        navigate('/admin/invoice', {state: res.data.result._id})
         setLoader(false);
         e.target.reset();
       }
@@ -120,19 +137,19 @@ const CreateSales = () => {
             <Logo h="24" />
           </div>
           <form className="flex-1 flex flex-col items-end">
-            <div className="flex items-center gap-2">
-              <label className="font-semibold">Date</label>
+            <div className="flex items-center gap-2 w-full">
+              <label className="font-semibold w-3/12">Date</label>
               <input
                 type="text"
                 name="date"
                 defaultValue={date}
-                className="bg-white focus:ring-0 px-2 py-1 focus:border w-full focus:outline-none border border-black"
+                className="bg-white focus:ring-0 px-2 py-1 flex-1 focus:border focus:outline-none border border-black"
                 placeholder="Type Here"
                 disabled
               />
             </div>
-            <div className="flex items-center gap-2 mt-2">
-              <label className="font-semibold">Client Name*</label>
+            <div className="flex items-center gap-2 mt-2 w-full">
+              <label className="font-semibold w-3/12">Client Name*</label>
               <input
                 type="text"
                 name="clientName"
@@ -142,9 +159,33 @@ const CreateSales = () => {
                 required={isRequired}
               />
             </div>
-            {isRequired && (
+            {isRequired.clientName && (
               <p className="text-red-400 text-xs">This field is required</p>
             )}
+            <div className="flex items-center gap-2 mt-2 w-full">
+              <label className="font-semibold w-3/12">Client Phone*</label>
+              <input
+                type="number"
+                name="clientPhone"
+                onChange={(e) => setClientPhone(e.target.value)}
+                className="bg-white focus:ring-0 px-2 py-1 flex-1 focus:border focus:outline-none border border-black"
+                placeholder="Type Here"
+                required={isRequired}
+              />
+            </div>
+            {isRequired.clientPhone && (
+              <p className="text-red-400 text-xs">This field is required</p>
+            )}
+            <div className="flex items-center gap-2 mt-2 w-full">
+              <label className="font-semibold w-3/12">Client Address</label>
+              <input
+                type="text"
+                name="clientAdd"
+                onChange={(e) => setClientAdd(e.target.value)}
+                className="bg-white focus:ring-0 px-2 py-1 flex-1 focus:border focus:outline-none border border-black"
+                placeholder="Type Here"
+              />
+            </div>
           </form>
         </div>
         <hr />

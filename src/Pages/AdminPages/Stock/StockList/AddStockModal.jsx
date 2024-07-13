@@ -134,6 +134,7 @@ const AddStockModal = ({ product, isOpen, setIsOpen, fetchData }) => {
                             className="bg-white h-12 focus:ring-0 px-4 focus:border w-full focus:outline-none border border-black"
                             placeholder="Type Here"
                             required
+                            disabled
                           />
                         </div>
                         <div className="">
