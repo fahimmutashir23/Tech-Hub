@@ -1,7 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { HiUserGroup } from "react-icons/hi2";
-import { MdContactPage, MdKeyboardArrowDown } from "react-icons/md";
+import {
+  MdContactPage,
+  MdDashboard,
+  MdKeyboardArrowDown,
+  MdProductionQuantityLimits,
+  MdReport,
+} from "react-icons/md";
 import { MdLibraryBooks } from "react-icons/md";
 import { FaImages } from "react-icons/fa";
 import { BasicContext } from "../../ContextAPIs/BasicProvider";
@@ -9,6 +15,8 @@ import useSmallScreen from "../../Hooks/useSmallScreen";
 import useHasAccess from "../../Hooks/useHasAccess";
 import Loader2 from "../../Utils/Loader2";
 import Logo from "../../Utils/Logo";
+import { FaSackDollar } from "react-icons/fa6";
+import { GiExpense } from "react-icons/gi";
 
 const LeftBar = () => {
   const [selected, setSelected] = useState("");
@@ -33,8 +41,8 @@ const LeftBar = () => {
     }
   };
 
-  if(isLoading){
-    return <Loader2 />
+  if (isLoading) {
+    return <Loader2 />;
   }
 
   return (
@@ -42,7 +50,7 @@ const LeftBar = () => {
       <div className=" rounded  w-full">
         {/* <img className=" mx-auto  mb-[18px]rounded h-10 object-contain w-full" src="" alt="LOGO" /> */}
         {/* <h1 className="text-2xl">LOGO</h1> */}
-        <Logo w ='full' h='24' />
+        <Logo w="full" h="24" />
       </div>
       <div className="flex flex-col justify-between">
         <ul className="w-full">
@@ -66,7 +74,7 @@ const LeftBar = () => {
                       className="flex items-center gap-2 py-p_primary"
                     >
                       <span className="bg-bg_selected text-white p-p_primary rounded-rounded_primary text-md">
-                        <HiUserGroup />
+                        <MdDashboard />
                       </span>
                       <span className="text-md font_sans font-medium ">
                         Dashboard
@@ -171,7 +179,7 @@ const LeftBar = () => {
                       className="flex items-center  gap-2"
                     >
                       <span className="bg-bg_selected text-white p-p_primary rounded-rounded_primary text-md">
-                        <FaImages />
+                        <GiExpense />
                       </span>
                       <span className="text-md font_sans font-medium flex justify-between w-full">
                         <p className={`text-gray-600`}>Expense</p>
@@ -242,7 +250,7 @@ const LeftBar = () => {
                       className="flex items-center  gap-2"
                     >
                       <span className="bg-bg_selected text-white p-p_primary rounded-rounded_primary text-md">
-                        <FaImages />
+                        <MdProductionQuantityLimits />
                       </span>
                       <span className="text-md font_sans font-medium flex justify-between w-full">
                         <p className={`text-gray-600`}>Stock Product</p>
@@ -313,7 +321,7 @@ const LeftBar = () => {
                       className="flex items-center  gap-2"
                     >
                       <span className="bg-bg_selected text-white p-p_primary rounded-rounded_primary text-md">
-                        <FaImages />
+                        <FaSackDollar />
                       </span>
                       <span className="text-md font_sans font-medium flex justify-between w-full">
                         <p className={`text-gray-600`}>Sales</p>
@@ -375,7 +383,117 @@ const LeftBar = () => {
                     </ul>
                   </li>
                 }
-                
+                {
+                  <li
+                    className={`py-p_primary px-p_primary my-1 hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200`}
+                  >
+                    <div
+                      onClick={() => handleOpen(6)}
+                      className="flex items-center  gap-2"
+                    >
+                      <span className="bg-bg_selected text-white p-p_primary rounded-rounded_primary text-md">
+                        <MdReport />
+                      </span>
+                      <span className="text-md font_sans font-medium flex justify-between w-full">
+                        <p className={`text-gray-600`}>Reports</p>
+                        <MdKeyboardArrowDown
+                          className={`${
+                            openDropdown === 6
+                              ? "rotate-180 text-2xl"
+                              : "text-2xl "
+                          } transition-all duration-500`}
+                        />
+                      </span>
+                    </div>
+
+                    <ul
+                      className={`space-y-1 ${
+                        openDropdown === 6 ? "max-h-[400px]" : "max-h-0"
+                      } overflow-hidden ml-m_md transition-all duration-500 ease-in-out`}
+                    >
+                      {
+                        <li
+                          className={` px-p_primary my-1 hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${
+                            selected === "/admin/salesReport"
+                              ? "bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected "
+                              : "text-[#585c66] font-medium hover:text-[#585c66] hover:bg-gray-300"
+                          }`}
+                          onClick={() => handleClick("/admin/salesReport")}
+                        >
+                          <Link
+                            to="/admin/salesReport"
+                            className="flex items-center  gap-2 py-p_primary"
+                          >
+                            <span className="bg-bg_selected text-white p-1 rounded-rounded_primary text-md"></span>
+                            <span className="text-md font_sans font-medium ">
+                              Sales Report
+                            </span>
+                          </Link>
+                        </li>
+                      }
+                      {
+                        <li
+                          className={` px-p_primary my-1 hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${
+                            selected === "/admin/StockReport"
+                              ? "bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected "
+                              : "text-[#585c66] font-medium hover:text-[#585c66] hover:bg-gray-300"
+                          }`}
+                          onClick={() => handleClick("/admin/StockReport")}
+                        >
+                          <Link
+                            to="/admin/StockReport"
+                            className="flex items-center  gap-2 py-p_primary"
+                          >
+                            <span className="bg-bg_selected text-white p-1 rounded-rounded_primary text-md"></span>
+                            <span className="text-md font_sans font-medium ">
+                              Stock Report
+                            </span>
+                          </Link>
+                        </li>
+                      }
+                      {
+                        <li
+                          className={` px-p_primary my-1 hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${
+                            selected === "/admin/expenseReport"
+                              ? "bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected "
+                              : "text-[#585c66] font-medium hover:text-[#585c66] hover:bg-gray-300"
+                          }`}
+                          onClick={() => handleClick("/admin/expenseReport")}
+                        >
+                          <Link
+                            to="/admin/expenseReport"
+                            className="flex items-center  gap-2 py-p_primary"
+                          >
+                            <span className="bg-bg_selected text-white p-1 rounded-rounded_primary text-md"></span>
+                            <span className="text-md font_sans font-medium ">
+                              Expense Report
+                            </span>
+                          </Link>
+                        </li>
+                      }
+                      {
+                        <li
+                        className={` px-p_primary my-1 hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${
+                          selected === "/admin/revenueReport"
+                            ? "bg-bg_selected rounded-rounded_primary text-white hover:text-white font-medium hover:bg-bg_selected "
+                            : "text-[#585c66] font-medium hover:text-[#585c66] hover:bg-gray-300"
+                        }`}
+                        onClick={() => handleClick("/admin/revenueReport")}
+                      >
+                        <Link
+                          to="/admin/revenueReport"
+                          className="flex items-center  gap-2 py-p_primary"
+                        >
+                          <span className="bg-bg_selected text-white p-1 rounded-rounded_primary text-md"></span>
+                          <span className="text-md font_sans font-medium ">
+                            Revenue Report
+                          </span>
+                        </Link>
+                      </li>
+                      }
+                    </ul>
+                  </li>
+                }
               </ul>
             </li>
           }
@@ -423,7 +541,7 @@ const LeftBar = () => {
                         openDropdown === 2 ? "max-h-[400px]" : "max-h-0"
                       } overflow-hidden ml-m_md transition-all duration-500 ease-in-out`}
                     >
-                      { hasAccess?.some(item => item === 'user-list') &&
+                      {hasAccess?.some((item) => item === "user-list") && (
                         <li
                           className={` px-p_primary my-1 hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${
                             selected === "/admin/userList"
@@ -442,8 +560,8 @@ const LeftBar = () => {
                             </span>
                           </Link>
                         </li>
-                      }
-                      {hasAccess?.some(item => item === 'role-list') &&
+                      )}
+                      {hasAccess?.some((item) => item === "role-list") && (
                         <li
                           className={` px-p_primary my-1 hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${
                             selected === "/admin/roleList"
@@ -462,7 +580,7 @@ const LeftBar = () => {
                             </span>
                           </Link>
                         </li>
-                      }
+                      )}
                     </ul>
                   </li>
                 }

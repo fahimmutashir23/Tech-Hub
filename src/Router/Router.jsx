@@ -36,6 +36,7 @@ import CreateStock from "../Pages/AdminPages/Stock/StockList/CreateStock";
 import SalesList from "@/Pages/AdminPages/Sales/SalesList/SalesList";
 import NewSales from "@/Pages/AdminPages/Sales/NewSales/NewSales";
 import SaleInvoice from "@/Pages/AdminPages/Invoice/SaleInvoice";
+import SalesReport from "@/Pages/AdminPages/Report/SalesReport";
 
 
 const Router = createBrowserRouter([
@@ -154,7 +155,12 @@ const Router = createBrowserRouter([
                 path: '/admin/invoice',
                 element: <SaleInvoice />
             },
-            // Adminestrative
+            // Report section
+            {
+                path: '/admin/salesReport',
+                element: <SalesReport />
+            },
+            // Administrative
             {
                 path: '/admin/userList',
                 element: <AccessComponents accessName='user-list'><UserList /></AccessComponents>
