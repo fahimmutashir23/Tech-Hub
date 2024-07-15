@@ -14,8 +14,9 @@ import {
 } from "/components/ui/select";
 import { DatePickerWithRange } from "./DatePicker";
 import { addDays, format } from "date-fns";
-import useBulkSales from "@/Hooks/Reports/useBulkSales";
 import { IoMdEye } from "react-icons/io";
+import { Link } from "react-router-dom";
+import useBulkSales from "@/Hooks/Reports/BulkReports/useBulkSales";
 
 
 const SalesReport = () => {
@@ -97,7 +98,7 @@ const SalesReport = () => {
             <h1 className="text-3xl text-center font-semibold">{bulkSale.yesterdayAmount}<span className="text-xl">tk</span></h1>
           </div>
           <div
-            className={`px-4 py-3 bg-red-600 text-white rounded-md shadow-md`}
+            className={`px-4 py-3 bg-red-400 text-white rounded-md shadow-md`}
           >
             <h1 className="text-xl text-center font-semibold"></h1>
             <h1 className="text-xl text-center font-semibold">
@@ -147,7 +148,7 @@ const SalesReport = () => {
           </div>
         </div>
       </div>
-      <div className="overflow-x-auto pb-32 ">
+      <div className="overflow-x-auto">
         <table className="table border border-blue-900">
           {/* head */}
           <thead className="h-[40px]">
@@ -204,12 +205,13 @@ const SalesReport = () => {
                       } right-[14px] top-[24px] rounded-md rounded-tr-sm duration-300 origin-top-right`}
                     >
                       <ul className="text-black text-left">
-                        <div
-
+                        <Link
+                            to='/admin/invoice'
+                            state={data._id}
                           className="w-full p-2 font_standard transition-all flex items-center list_hover gap-2"
                         >
                           <IoMdEye /> View
-                        </div>
+                        </Link>
                       </ul>
                     </div>
                   </button>
@@ -222,7 +224,7 @@ const SalesReport = () => {
           className="bg-gray-700 max-w-fit mx-auto mt-2 text-white"
           first={first}
           rows={rows}
-          totalRecords={collectionData.booking}
+          totalRecords={collectionData.sales}
           onPageChange={onPageChange}
         />
       </div>

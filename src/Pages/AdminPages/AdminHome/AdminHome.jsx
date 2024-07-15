@@ -1,5 +1,8 @@
 import useGetCollectionLength from "../../../Hooks/useGetCollectionLength";
 import Loader2 from "@/Utils/Loader2";
+import BarCharts from "@/Components/Charts/BarCharts";
+import useBulkSales from "@/Hooks/Reports/BulkReports/useBulkSales";
+import useMonthlySale from "@/Hooks/Reports/MonthlyReport/useMonthlySale";
 const colors = [
   { id: 0, name: "Tomato", hex: "bg-[#FF1347]" },
   { id: 1, name: "LightSkyBlue", hex: "bg-[#00DD]" },
@@ -24,23 +27,26 @@ const colors = [
 ];
 
 const AdminHome = () => {
-  const [collectionData] = useGetCollectionLength();
+  const [ collectionData ] = useGetCollectionLength();
+  const [ bulkSale ] = useBulkSales();
+  const [ monthlySale ] = useMonthlySale();
 
-  if (!collectionData.product) {
+  if (!collectionData.product || !bulkSale) {
     return <Loader2 />;
   }
 
   const statCard = [
     { text: "Total Product in Web", value: collectionData.product || 0 },
     { text: "Total Bookings", value: collectionData.booking || 0 },
-    { text: "Total Sale", value: collectionData.sale || 0 },
+    { text: "Today's Sale", value: bulkSale.todayAmount || 0 },
     { text: "Total Revenue", value: collectionData.revenue || 0 },
     { text: "Total Expense", value: collectionData.expense?.totalExpense || 0 },
-    { text: "Total Stock", value: collectionData?.stock?.stock || 0, amount: collectionData?.stock?.stockAmount[0].totalSum },
+    { text: "Total Stock", value: collectionData?.stock?.stockAmount[0].totalSum || 0 },
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 py-1 px-3">
+    <div className="py-4 px-3 space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
       {statCard.map((item, idx) => {
         const matchingColor = colors.find(color => color.id === idx);
         return (
@@ -55,6 +61,10 @@ const AdminHome = () => {
           </div>
         );
       })}
+    </div>
+    <div className="grid grid-cols-1 lg:grid-cols-2">
+      <BarCharts monthlySale={monthlySale} />
+    </div>
     </div>
   );
 };
