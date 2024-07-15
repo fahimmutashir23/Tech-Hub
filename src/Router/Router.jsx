@@ -37,6 +37,9 @@ import SalesList from "@/Pages/AdminPages/Sales/SalesList/SalesList";
 import NewSales from "@/Pages/AdminPages/Sales/NewSales/NewSales";
 import SaleInvoice from "@/Pages/AdminPages/Invoice/SaleInvoice";
 import SalesReport from "@/Pages/AdminPages/Report/SalesReport";
+import StockReport from "@/Pages/AdminPages/Report/StockReport";
+import ExpenseReport from "@/Pages/AdminPages/Report/ExpenseReport";
+import RevenueReport from "@/Pages/AdminPages/Report/RevenueReport";
 
 
 const Router = createBrowserRouter([
@@ -159,6 +162,18 @@ const Router = createBrowserRouter([
             {
                 path: '/admin/salesReport',
                 element: <SalesReport />
+            },
+            {
+                path: '/admin/stockReport',
+                element: <StockReport />
+            },
+            {
+                path: '/admin/expenseReport',
+                element: <ExpenseReport />
+            },
+            {
+                path: '/admin/revenueReport',
+                element: <RevenueReport />
             },
             // Administrative
             {
