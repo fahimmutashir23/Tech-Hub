@@ -35,13 +35,14 @@ const AdminHome = () => {
     return <Loader2 />;
   }
 
+
   const statCard = [
     { text: "Total Product in Web", value: collectionData.product || 0 },
     { text: "Total Bookings", value: collectionData.booking || 0 },
     { text: "Today's Sale", value: bulkSale.todayAmount || 0 },
     { text: "Total Revenue", value: collectionData.revenue || 0 },
     { text: "Total Expense", value: collectionData.expense?.totalExpense || 0 },
-    { text: "Total Stock", value: collectionData?.stock?.stockAmount[0].totalSum || 0 },
+    { text: "Total Stock", value: collectionData.stock.stockAmount[0].totalSum || 0 },
   ];
 
   return (

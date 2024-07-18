@@ -4,12 +4,30 @@ import { Fragment } from "react";
 import { IoMdClose } from "react-icons/io";
 import { toast } from "react-toastify";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import Loader2 from "@/Utils/Loader2";
+import useGetBrand from "@/Hooks/GetBrand/useGetBrand";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "/components/ui/select";
 
-const AddProductModal = ({ fetchData, setLoader, collectionFetch, isOpen, setIsOpen }) => {
+const AddProductModal = ({ setLoader, isOpen, setIsOpen }) => {
   const [animate, setAnimate] = useState(false);
   const axiosSecure = useAxiosSecure();
-  
-  
+  const [brand] = useGetBrand();
+  const [brandValue, setBrandValue] = useState(null);
+
+  const { data: stockCat = [], isLoading } = useQuery({
+    queryKey: ["get-stock-category"],
+    queryFn: async () => {
+      const res = await axiosSecure("/api/get-stockCategory-list");
+      return res.data.result;
+    },
+  });
 
   const handleAnimate = () => {
     setAnimate(true);
@@ -20,38 +38,46 @@ const AddProductModal = ({ fetchData, setLoader, collectionFetch, isOpen, setIsO
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoader(true)
+    setLoader(true);
     const name = e.target.name.value;
-    const brand = e.target.brand.value;
-    const price = e.target.price.value;
-    const category = e.target.category.value;
+    const model = e.target.modelName.value;
+    const warranty = e.target.warranty.value;
+    const stockAlert = e.target.stockAlert.value;
+    const quantity = e.target.quantity.value;
+    const unitPrice = e.target.price.value;
+    const category_id = e.target.category.value;
     const images = e.target.image.files[0];
     const details = e.target.details.value;
+    const totalPrice = parseInt(unitPrice) + parseInt(quantity);
 
-    const formData = new FormData()
-    formData.append('name', name)
-    formData.append('price', price)
-    formData.append('brand', brand)
-    formData.append('category', category)
-    formData.append('details', details)
-    formData.append('images', images)
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("images", images);
+    formData.append("unitPrice", unitPrice);
+    formData.append("brand_id", brandValue);
+    formData.append("details", details);
+    formData.append("category_id", category_id);
+    formData.append("totalPrice", totalPrice);
+    formData.append("quantity", quantity);
+    formData.append("model", model);
+    formData.append("warranty", warranty);
+    formData.append("stockAlert", stockAlert);
 
     try {
-      const res = await axiosSecure.post("/api/create-product", formData);
+      const res = await axiosSecure.post("/api/create-stock", formData);
       if (res.data.success) {
-        setIsOpen(false)
-        fetchData();
-        collectionFetch()
+        setIsOpen(false);
         toast.success(res.data.message);
-        e.target.reset()
-        setLoader(false)
+        e.target.reset();
+        setLoader(false);
       }
     } catch (error) {
-      fetchData()
-      toast.error(error.response.data)
-      setLoader(false)
+      toast.error(error.response.data);
+      setLoader(false);
     }
   };
+
+  if (isLoading) return <Loader2 />;
 
   return (
     <>
@@ -89,7 +115,9 @@ const AddProductModal = ({ fetchData, setLoader, collectionFetch, isOpen, setIsO
                       as="h3"
                       className="border px-4 text-xl bg-gray-700 text-white flex items-center justify-between h-14"
                     >
-                      <h6 className="py-2 text-2xl font-semibold">Add Product</h6>
+                      <h6 className="py-2 text-2xl font-semibold">
+                        Add Product
+                      </h6>
                       <button
                         onClick={() => setIsOpen(false)}
                         className="text_color close-button "
@@ -116,14 +144,55 @@ const AddProductModal = ({ fetchData, setLoader, collectionFetch, isOpen, setIsO
                         </div>
                         <div className="">
                           <label className="font-semibold">
+                            Product Category
+                            <span className="text-red-400 ml-1">
+                              (required)
+                            </span>{" "}
+                          </label>
+                          <select
+                            name="category"
+                            className="bg-white h-12 focus:ring-0 px-4 focus:border w-full focus:outline-none border border-black"
+                            id=""
+                          >
+                            {stockCat.map((cat) => (
+                              <option value={cat._id} key={cat._id}>
+                                {cat.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <div className="">
+                          <label className="font-semibold">
                             Brand Name
+                            <span className="text-red-400 ml-1">
+                              (required)
+                            </span>{" "}
+                          </label>
+                          <Select
+                            onValueChange={(value) => setBrandValue(value)}
+                          >
+                            <SelectTrigger className="bg-white focus:ring-0 px-2 focus:border w-full focus:outline-none border border-black rounded-sm">
+                              <SelectValue placeholder="Select a Product" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {brand.map((item) => (
+                                <SelectItem key={item._id} value={item._id}>
+                                  {item.name}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div className="">
+                          <label className="font-semibold">
+                            Model Name
                             <span className="text-red-400 ml-1">
                               (required)
                             </span>{" "}
                           </label>
                           <input
                             type="text"
-                            name="brand"
+                            name="modelName"
                             className="bg-white h-12 focus:ring-0 px-4 focus:border w-full focus:outline-none border border-black"
                             placeholder="Type Here"
                             required
@@ -131,7 +200,7 @@ const AddProductModal = ({ fetchData, setLoader, collectionFetch, isOpen, setIsO
                         </div>
                         <div className="">
                           <label className="font-semibold">
-                            Product Price
+                            Unit Price
                             <span className="text-red-400 ml-1">
                               (required)
                             </span>{" "}
@@ -146,14 +215,42 @@ const AddProductModal = ({ fetchData, setLoader, collectionFetch, isOpen, setIsO
                         </div>
                         <div className="">
                           <label className="font-semibold">
-                            Product Category
+                            Quantity
                             <span className="text-red-400 ml-1">
                               (required)
                             </span>{" "}
                           </label>
                           <input
-                            type="text"
-                            name="category"
+                            type="number"
+                            name="quantity"
+                            className="bg-white h-12 focus:ring-0 px-4 focus:border w-full focus:outline-none border border-black"
+                            placeholder="Type Here"
+                            required
+                          />
+                        </div>
+                        <div className="">
+                          <label className="font-semibold">
+                            Stock Alert
+                            <span className="text-red-400 ml-1">
+                              (required)
+                            </span>{" "}
+                          </label>
+                          <input
+                            type="number"
+                            name="stockAlert"
+                            className="bg-white h-12 focus:ring-0 px-4 focus:border w-full focus:outline-none border border-black"
+                            placeholder="Type Here"
+                            required
+                          />
+                        </div>
+                        <div className="">
+                          <label className="font-semibold">
+                            Warranty
+                            <span className="text-red-400 ml-1"></span>{" "}
+                          </label>
+                          <input
+                            type="date"
+                            name="warranty"
                             className="bg-white h-12 focus:ring-0 px-4 focus:border w-full focus:outline-none border border-black"
                             placeholder="Type Here"
                             required
@@ -175,25 +272,23 @@ const AddProductModal = ({ fetchData, setLoader, collectionFetch, isOpen, setIsO
                           />
                         </div>
                       </div>
-                        <div className="px-4">
-                          <label className="font-semibold">
-                            Product Details
-                            <span className="text-red-400 ml-1">
-                              (required)
-                            </span>{" "}
-                          </label>
-                          <textarea 
+                      <div className="px-4">
+                        <label className="font-semibold">
+                          Product Details
+                          <span className="text-red-400 ml-1">
+                            (required)
+                          </span>{" "}
+                        </label>
+                        <textarea
                           name="details"
-                            className="bg-white focus:ring-0 px-4 focus:border w-full focus:outline-none border border-black"
-                            placeholder="Type Here"
-                            required 
-                            rows="5"></textarea>
-                        </div>
+                          className="bg-white focus:ring-0 px-4 focus:border w-full focus:outline-none border border-black"
+                          placeholder="Type Here"
+                          required
+                          rows="5"
+                        ></textarea>
+                      </div>
                       <div className="border text-xl bg-gray-700 flex items-center justify-between">
-                        <button
-                          type="submit"
-                          className="button_primary"
-                        >
+                        <button type="submit" className="button_primary">
                           Save
                         </button>
                         <button

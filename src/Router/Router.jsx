@@ -40,6 +40,7 @@ import SalesReport from "@/Pages/AdminPages/Report/SalesReport";
 import StockReport from "@/Pages/AdminPages/Report/StockReport";
 import ExpenseReport from "@/Pages/AdminPages/Report/ExpenseReport";
 import RevenueReport from "@/Pages/AdminPages/Report/RevenueReport";
+import BrandList from "@/Pages/AdminPages/Brand/BrandList";
 
 
 const Router = createBrowserRouter([
@@ -144,6 +145,11 @@ const Router = createBrowserRouter([
             {
                 path: '/admin/purchaseList',
                 element: <CreateStock />
+            },
+            // Brand
+            {
+                path: '/admin/brand',
+                element: <BrandList />
             },
             // Sales
             {

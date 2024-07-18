@@ -15,12 +15,14 @@ import {
 } from "/components/ui/select";
 import { useQuery } from "@tanstack/react-query";
 import AddStockModal from "./AddStockModal";
+import useGetBrand from "@/Hooks/GetBrand/useGetBrand";
 
 const CreateStock = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [stockIsOpen, setStockIsOpen] = useState(false);
   const date = moment().format("DD-MM-YYYY");
   const axiosSecure = useAxiosSecure();
+  // const [brand, brandLoading] = useGetBrand();
   const [totalAmount, setTotalAmount] = useState(0);
   const [products, setProducts] = useState([]);
   const [expenseName, setExpenseName] = useState(null);
@@ -28,8 +30,10 @@ const CreateStock = () => {
   const [isRequired, setIsRequired] = useState(false);
 
   const [value, setValue] = useState("");
-  const [stockProduct, setStockProduct] = useState([]);
+  const [brandId, setBrandId] = useState();
   const [productId, setProductId] = useState();
+  const [brandData, setBrandData] = useState([]);
+  const [stockProduct, setStockProduct] = useState([]);
   const [showProduct, setShowProduct] = useState({});
 
   const { data, isLoading } = useQuery({
@@ -40,24 +44,35 @@ const CreateStock = () => {
     },
   });
 
-  const fetchData = async () => {
-    const res = await axiosSecure(`/api/get-category-w-stock-list?id=${value}`);
-    setStockProduct(res.data.result);
+  const fetchBrandData = async () => {
+    const info = {
+      category_id: value,
+    };
+    const res = await axiosSecure.post(`/api/get-brand-w-stock-list`, info);
+    setBrandData(res.data.result);
   };
 
   const fetchProductData = async () => {
-    const res = await axiosSecure(
-      `/api/get-product-w-stock-list?id=${productId}`
-    );
+    const info = {
+      category_id: value,
+      brand_id: brandId,
+    };
+    const res = await axiosSecure.post(`/api/get-product-w-stock-list`, info);
+    setStockProduct(res.data.result);
+  };
+
+  const fetchShowData = async () => {
+    const res = await axiosSecure(`/api/get-product-show-list?id=${productId}`);
     setShowProduct(res.data.result);
   };
 
   useEffect(() => {
-    if (value || productId) {
-      fetchData();
+    if (value || productId || brandId) {
+      fetchBrandData();
       fetchProductData();
+      fetchShowData();
     }
-  }, [value, productId]);
+  }, [value, productId, brandId]);
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -123,11 +138,11 @@ const CreateStock = () => {
         </div>
         <hr />
         <div className="flex flex-col lg:flex-row lg:items-end gap-2">
-          <div className="lg:w-5/12">
+          <div className="lg:w-3/12">
             <label className="font-semibold">Select Category</label>
             <Select onValueChange={(value) => setValue(value)}>
               <SelectTrigger className="bg-white focus:ring-0 px-2 focus:border w-full focus:outline-none border border-black rounded-sm">
-                <SelectValue placeholder="Select Category" />
+                <SelectValue placeholder="Select a Category" />
               </SelectTrigger>
               <SelectContent>
                 {data.map((item) => (
@@ -138,11 +153,26 @@ const CreateStock = () => {
               </SelectContent>
             </Select>
           </div>
-          <div className="lg:w-5/12">
+          <div className="lg:w-3/12">
+            <label className="font-semibold">Select Brand</label>
+            <Select onValueChange={(value) => setBrandId(value)}>
+              <SelectTrigger className="bg-white focus:ring-0 px-2 focus:border w-full focus:outline-none border border-black rounded-sm">
+                <SelectValue placeholder="Select a Product" />
+              </SelectTrigger>
+              <SelectContent>
+                {brandData.map((item) => (
+                  <SelectItem key={item._id} value={item._id}>
+                    {item.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="lg:w-3/12">
             <label className="font-semibold">Select Product</label>
             <Select onValueChange={(value) => setProductId(value)}>
               <SelectTrigger className="bg-white focus:ring-0 px-2 focus:border w-full focus:outline-none border border-black rounded-sm">
-                <SelectValue placeholder="Select a timezone" />
+                <SelectValue placeholder="Select a Product" />
               </SelectTrigger>
               <SelectContent>
                 {stockProduct.map((item) => (
@@ -156,7 +186,7 @@ const CreateStock = () => {
           <h2 className="font-semibold mb-1">Or</h2>
           <button
             onClick={() => setIsOpen(true)}
-            className=" bg-gray-700 lg:w-2/12 text-white px-2 py-1.5 font-bold duration-500 flex items-center justify-center gap-2"
+            className=" bg-gray-700 lg:w-3/12 text-white px-2 py-1.5 font-bold duration-500 flex items-center justify-center gap-2"
           >
             <IoAddCircleOutline className="text-2xl font-bold" />
             <span className="mt-1">Add Product</span>
@@ -169,9 +199,12 @@ const CreateStock = () => {
               <div></div>
               <div className="flex ">
                 {showProduct?.name && (
-                  <button onClick={() => setStockIsOpen(true)} className=" bg-gray-700 text-white px-3 py-1.5 font-bold duration-500 flex items-center gap-2">
+                  <button
+                    onClick={() => setStockIsOpen(true)}
+                    className=" bg-gray-700 text-white px-3 py-1.5 font-bold duration-500 flex items-center gap-2"
+                  >
                     <IoAddCircleOutline className="text-2xl font-bold" />
-                     Add Stock
+                    Add Stock
                   </button>
                 )}
               </div>
@@ -189,35 +222,37 @@ const CreateStock = () => {
                   <th className="text-md border w-2/12">T.S.A</th>
                 </tr>
               </thead>
-              {showProduct?.name && <tbody className="text-center">
-                <tr>
-                  <td
-                    className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
-                  >
-                    {showProduct?.name}
-                  </td>
-                  <td
-                    className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
-                  >
-                    {showProduct?.category_id?.name}
-                  </td>
-                  <td
-                    className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
-                  >
-                    {showProduct?.unitPrice}/-
-                  </td>
-                  <td
-                    className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
-                  >
-                    {showProduct?.quantity}
-                  </td>
-                  <td
-                    className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
-                  >
-                    {showProduct?.quantity * showProduct?.unitPrice}/-
-                  </td>
-                </tr>
-              </tbody>}
+              {showProduct?.name && (
+                <tbody className="text-center">
+                  <tr>
+                    <td
+                      className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
+                    >
+                      {showProduct?.name}
+                    </td>
+                    <td
+                      className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
+                    >
+                      {showProduct?.category_id?.name}
+                    </td>
+                    <td
+                      className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
+                    >
+                      {showProduct?.unitPrice}/-
+                    </td>
+                    <td
+                      className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
+                    >
+                      {showProduct?.quantity}
+                    </td>
+                    <td
+                      className={`px-6 pt-2 font-semibold text-lg whitespace-nowrap text-center border  text-black `}
+                    >
+                      {showProduct?.quantity * showProduct?.unitPrice}/-
+                    </td>
+                  </tr>
+                </tbody>
+              )}
             </table>
           </div>
         </div>
@@ -249,8 +284,17 @@ const CreateStock = () => {
           Save
         </button>
       </form>
-      <AddProductModal isOpen={isOpen} setIsOpen={setIsOpen} />
-      <AddStockModal isOpen={stockIsOpen} setIsOpen={setStockIsOpen} product={showProduct} fetchData={fetchProductData} />
+      <AddProductModal
+        setLoader={setLoader}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
+      <AddStockModal
+        isOpen={stockIsOpen}
+        setIsOpen={setStockIsOpen}
+        product={showProduct}
+        fetchData={fetchProductData}
+      />
     </div>
   );
 };
