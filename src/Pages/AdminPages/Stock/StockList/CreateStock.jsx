@@ -15,19 +15,15 @@ import {
 } from "/components/ui/select";
 import { useQuery } from "@tanstack/react-query";
 import AddStockModal from "./AddStockModal";
-import useGetBrand from "@/Hooks/GetBrand/useGetBrand";
 
 const CreateStock = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [stockIsOpen, setStockIsOpen] = useState(false);
   const date = moment().format("DD-MM-YYYY");
   const axiosSecure = useAxiosSecure();
-  // const [brand, brandLoading] = useGetBrand();
   const [totalAmount, setTotalAmount] = useState(0);
   const [products, setProducts] = useState([]);
-  const [expenseName, setExpenseName] = useState(null);
   const [loader, setLoader] = useState(false);
-  const [isRequired, setIsRequired] = useState(false);
 
   const [value, setValue] = useState("");
   const [brandId, setBrandId] = useState();
@@ -76,8 +72,6 @@ const CreateStock = () => {
 
   const handleSave = async (e) => {
     e.preventDefault();
-    if (!expenseName) return setIsRequired(true);
-    setIsRequired(true);
     setLoader(false);
 
     const notes = e.target.notes.value;
@@ -85,7 +79,6 @@ const CreateStock = () => {
 
     const info = {
       makerName,
-      expenseName,
       quantity: products.length,
       totalAmount,
       date,
@@ -131,9 +124,6 @@ const CreateStock = () => {
                 disabled
               />
             </div>
-            {isRequired && (
-              <p className="text-red-400 text-xs">This field is required</p>
-            )}
           </form>
         </div>
         <hr />

@@ -27,11 +27,11 @@ import { FaChevronRight } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
 const Home = () => {
-  const targetDate = "2024-06-01T23:59:59";
+  const date = "2024-06-01T23:59:59";
 
 
 
-  const calculateTimeLeft = () => {
+  const calculateTimeLeft = (targetDate) => {
     const difference = +new Date(targetDate) - +new Date();
     let timeLeft = {};
 
@@ -49,7 +49,7 @@ const Home = () => {
     return timeLeft;
   };
 
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(date));
 
   useEffect(() => {
     const timer = setTimeout(() => {
